@@ -1,0 +1,55 @@
+import React from 'react';
+import Plot from 'react-plotly.js';
+
+interface PlotlyTableProps {
+  data: (string | number)[][];
+  headers: string[];
+  cellColors?: string[];
+  headerColor?: string;
+  width?: number;
+  height?: number;
+}
+
+const PlotlyTable: React.FC<PlotlyTableProps> = ({
+  data,
+  headers,
+  cellColors = ['#f0f0f0', 'white'],
+  headerColor = '#2c3e50',
+  width = 700,
+  height = 400
+}) => {
+  const transposedData = data[0].map((_, colIndex) => 
+    data.map(row => row[colIndex])
+  );
+
+  return (
+    <Plot
+      data={[{
+        type: 'table',
+        header: {
+          values: headers,
+          align: 'center',
+          fill: { color: headerColor },
+          font: { family: 'Arial', size: 14, color: 'white' },
+          line: { width: 1, color: 'darkgrey' }
+        },
+        cells: {
+          values: transposedData,
+          align: 'center',
+          fill: { color: cellColors },
+          font: { family: 'Arial', size: 12, color: 'black' },
+          line: { color: 'darkgrey', width: 1 }
+        }
+      }]}
+      layout={{
+        width,
+        height,
+        margin: { t: 30, l: 20, r: 20, b: 20 }
+      }}
+      config={{ responsive: true }}
+    />
+  );
+};
+
+export default PlotlyTable;
+

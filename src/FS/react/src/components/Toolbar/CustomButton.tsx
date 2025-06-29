@@ -1,0 +1,41 @@
+import React from "react";
+import CustomIcon from "./CustomIcon";
+
+type Props = {
+  tooltip?: string;
+  onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  selected?: boolean;
+  children?: React.ReactNode;
+  iconName?: string;
+  icon?: React.ReactNode;
+  // key?: string;
+};
+
+const CustomButton: React.FC<Props> = ({
+  tooltip,
+  onClick,
+  selected,
+  children,
+  iconName,
+  icon,
+  // key,
+}) => {
+  // const style: CSSProperties = { userSelect: "none" };
+  return (
+    <div
+      className="fortune-toolbar-button fortune-toolbar-item"
+      onClick={onClick}
+      tabIndex={0}
+      data-tips={tooltip}
+      role="button"
+      style={selected ? { backgroundColor: "#E7E5EB" } : {}}
+      // key={key}
+    >
+      <CustomIcon iconName={iconName} content={icon} />
+      {tooltip && <div className="fortune-tooltip">{tooltip}</div>}
+      {children}
+    </div>
+  );
+};
+
+export default CustomButton;

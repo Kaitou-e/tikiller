@@ -1,0 +1,40 @@
+{
+  "name": "@fortune-sheet/react",
+  "version": "1.0.2",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "repository": "https://github.com/ruilisi/fortune-sheet",
+  "license": "MIT",
+  "scripts": {
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "@types/regenerator-runtime": "^0.13.6",
+    "immer": "^9.0.12",
+    "lodash": "^4.17.21",
+    "regenerator-runtime": "^0.14.1"
+  },
+  "peerDependencies": {
+    "react": ">= 18.2",
+    "react-dom": ">= 18.2"
+  },
+  "keywords": [
+    "spreadsheet",
+    "sheet",
+    "excel",
+    "data table",
+    "table",
+    "data grid",
+    "react",
+    "reactjs",
+    "react component",
+    "collabration",
+    "collabrative"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
