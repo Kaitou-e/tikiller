@@ -11,7 +11,8 @@ import handleZZZ from "./example_handles/handleZZZ.tsx";
 import handleMoon from "./example_handles/handleMoon.tsx";
 import handleNeg from "./example_handles/handleNeg.tsx";
 import handleYeti from "./example_handles/handleYeti.tsx";
-import handleAdd from "./realstats/handleAdd.tsx";
+import handleAdd from "./realstats/handle1PropZ.tsx";
+import handle2PropZ from "./realstats/handle2PropZ.tsx";
 
 function MyMenu() {
   const { context, setContext } = useContext(WorkbookContext);
@@ -45,6 +46,8 @@ function MyMenu() {
       handleYeti(data, showDialog);
     } else if (value === "add") {
       handleAdd(data, showDialog);
+    } else if (value === "2propz") {
+      handle2PropZ(data, showDialog);
     }
   }
   const items = [
@@ -79,6 +82,10 @@ function MyMenu() {
     {
       text: "1-Prop z Test",
       value: "add",
+    },
+    {
+      text: "2-Prop z Test",
+      value: "2propz",
     },
   ];
   return (

@@ -104,6 +104,7 @@ function handleAdd(
       ["Sample prop", sampleProp],
       ["Z-score", testres.z.toFixed(5)],
       ["P value", testres.pValue.toFixed(5)],
+      ["n", sampleSize.value],
     ];
     const align: ("left" | "center" | "right")[] = ["left", "center"];
     return (
@@ -149,7 +150,7 @@ function handleAdd(
         textLabel="Select a column: "
         width={100}
       />
-      <TextInput variable={eventName} textLabel="event name " />
+      <TextInput variable={eventName} textLabel="Event name: " />
       <CheckBox variable={exclRow1} textLabel="Exclude the first Row" />
 
       <h4>Enter using stats (override):</h4>
