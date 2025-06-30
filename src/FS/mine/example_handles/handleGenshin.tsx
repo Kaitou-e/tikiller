@@ -1,13 +1,13 @@
-import NumberInput from "./inputs/NumberInput.tsx";
-import TextInput from "./inputs/TextInput.tsx";
-import CheckBox from "./inputs/CheckBox.tsx";
-import DrawDownSelection from "./inputs/DrawDown.tsx";
+import NumberInput from "../inputs/NumberInput.tsx";
+import TextInput from "../inputs/TextInput.tsx";
+import CheckBox from "../inputs/CheckBox.tsx";
+import DrawDownSelection from "../inputs/DrawDown.tsx";
 import {
   getColNames,
   excelColumnToIndex,
   getMultiColNum,
-} from "./utilities.tsx";
-import MyGuiVar from "./myGuiVar.tsx";
+} from "../utilities.tsx";
+import MyGuiVar from "../myGuiVar.tsx";
 
 function handleGenshin(
   data: any[][], // the spreadsheet data in 2d array

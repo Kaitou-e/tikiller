@@ -5,12 +5,12 @@ import Select, { Option } from "../react/src/components/Toolbar/Select.tsx";
 import WorkbookContext from "../react/src/context";
 // import { Context } from '../core/src/context.ts'
 import { useDialog } from "../react/src/hooks/useDialog.tsx";
-import handleGenshin from "./handleGenshin.tsx";
+import handleGenshin from "./example_handles/handleGenshin.tsx";
 import { getFlowdata } from "../core";
-import handleZZZ from "./handleZZZ.tsx";
-import handleMoon from "./handleMoon.tsx";
-import handleNeg from "./handleNeg.tsx";
-import handleYeti from "./handleYeti.tsx";
+import handleZZZ from "./example_handles/handleZZZ.tsx";
+import handleMoon from "./example_handles/handleMoon.tsx";
+import handleNeg from "./example_handles/handleNeg.tsx";
+import handleYeti from "./example_handles/handleYeti.tsx";
 import handleAdd from "./realstats/handleAdd.tsx";
 
 function MyMenu() {

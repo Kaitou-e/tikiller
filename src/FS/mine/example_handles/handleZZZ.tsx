@@ -3,9 +3,9 @@ import {
   getColNames,
   excelColumnToIndex,
   getMultiColNum,
-} from "./utilities.tsx";
-import MultiSelectBox from "./inputs/multiSelect2.tsx";
-import MyGuiVar from "./myGuiVar.tsx";
+} from "../utilities.tsx";
+import MultiSelectBox from "../inputs/multiSelect2.tsx";
+import MyGuiVar from "../myGuiVar.tsx";
 
 function handleZZZ(
   data: any[][], // the spreadsheet data in 2d array
