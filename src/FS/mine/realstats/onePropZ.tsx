@@ -1,3 +1,4 @@
+import cdf from "@stdlib/stats-base-dists-normal-cdf";
 /**
  * Performs a one-proportion z-test
  * @param p0 Hypothesized population proportion (under null hypothesis)
@@ -11,9 +12,8 @@ function onePropZTest(
   p0: number,
   p_hat: number,
   n: number,
-  alpha: number,
   alternative: "two-sided" | "less" | "greater"
-): { z: number; pValue: number; rejectNull: boolean } {
+): { z: number; pValue: number } {
   // Calculate standard error
   const SE = Math.sqrt((p0 * (1 - p0)) / n);
 
@@ -24,13 +24,13 @@ function onePropZTest(
   let pValue: number;
   switch (alternative) {
     case "two-sided":
-      pValue = 2 * (1 - normalCDF(Math.abs(z)));
+      pValue = 2 * (1 - cdf(Math.abs(z), 0, 1));
       break;
     case "less":
-      pValue = normalCDF(z);
+      pValue = cdf(z, 0, 1);
       break;
     case "greater":
-      pValue = 1 - normalCDF(z);
+      pValue = 1 - cdf(z, 0, 1);
       break;
     default:
       throw new Error(
@@ -38,10 +38,7 @@ function onePropZTest(
       );
   }
 
-  // Determine whether to reject null hypothesis
-  const rejectNull = pValue < alpha;
-
-  return { z, pValue, rejectNull };
+  return { z, pValue };
 }
 
 export default onePropZTest;
@@ -51,20 +48,20 @@ export default onePropZTest;
  * @param z Z-score
  * @returns Cumulative probability from -∞ to z
  */
-function normalCDF(z: number): number {
-  // Save the sign of z
-  const sign = z < 0 ? -1 : 1;
-  const absZ = Math.abs(z);
+// function normalCDF(z: number): number {
+//   // Save the sign of z
+//   const sign = z < 0 ? -1 : 1;
+//   const absZ = Math.abs(z);
 
-  // Abramowitz & Stegun approximation (1964)
-  const t = 1.0 / (1.0 + 0.2316419 * absZ);
-  const d = 0.3989423 * Math.exp((-absZ * absZ) / 2);
+//   // Abramowitz & Stegun approximation (1964)
+//   const t = 1.0 / (1.0 + 0.2316419 * absZ);
+//   const d = 0.3989423 * Math.exp((-absZ * absZ) / 2);
 
-  const probability =
-    d *
-    t *
-    (0.3193815 +
-      t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+//   const probability =
+//     d *
+//     t *
+//     (0.3193815 +
+//       t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
 
-  return z < 0 ? probability : 1 - probability;
-}
+//   return z < 0 ? probability : 1 - probability;
+// }

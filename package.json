@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@formulajs/formulajs": "^4.5.3",
+    "@stdlib/stats": "^0.3.3",
+    "@stdlib/stats-base-dists": "^0.2.2",
+    "@stdlib/stats-base-dists-normal-cdf": "^0.2.2",
     "@types/react-plotly.js": "^2.6.3",
     "@types/regenerator-runtime": "^0.13.6",
     "dayjs": "^1.11.0",
