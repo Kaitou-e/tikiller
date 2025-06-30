@@ -11,7 +11,7 @@ import handleZZZ from "./handleZZZ.tsx";
 import handleMoon from "./handleMoon.tsx";
 import handleNeg from "./handleNeg.tsx";
 import handleYeti from "./handleYeti.tsx";
-import handleAdd from "./handleAdd.tsx";
+import handleAdd from "./realstats/handleAdd.tsx";
 
 function MyMenu() {
   const { context, setContext } = useContext(WorkbookContext);
