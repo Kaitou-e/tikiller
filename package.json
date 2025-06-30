@@ -10,14 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formulajs/formulajs": "^4.5.3",
     "@types/react-plotly.js": "^2.6.3",
     "@types/regenerator-runtime": "^0.13.6",
     "dayjs": "^1.11.0",
+    "formulajs": "^1.0.8",
     "immer": "^9.0.12",
+    "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
+    "numeral": "^2.0.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "regenerator-runtime": "^0.14.1",
+    "tiny-emitter": "^2.1.0",
+    "uuid": "^11.1.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
