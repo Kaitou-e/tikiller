@@ -26,7 +26,7 @@ function handleAdd(
   let selectCol = new MyGuiVar("");
   let eventName = new MyGuiVar("");
   let pNull = new MyGuiVar(0.5);
-  let altHyp = new MyGuiVar("");
+  let altHyp = new MyGuiVar("prop != p0");
 
   // function colSum(){
   //     console.log("selected col",drawdown2.value)
@@ -139,7 +139,7 @@ function handleAdd(
       <DrawDownSelection
         variable={altHyp}
         options={["prop != p0", "prop > p0", "prop < p0"]}
-        textLabel="Alternative Hyp: "
+        textLabel="Alternate Hyp: "
         width={100}
       />
 

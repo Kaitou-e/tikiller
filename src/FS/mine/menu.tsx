@@ -13,6 +13,8 @@ import handleNeg from "./example_handles/handleNeg.tsx";
 import handleYeti from "./example_handles/handleYeti.tsx";
 import handleAdd from "./realstats/handle1PropZ.tsx";
 import handle2PropZ from "./realstats/handle2PropZ.tsx";
+import handleTTest from "./realstats/handleTTest.tsx";
+import handleOneVarStats from "./realstats/handleOneVarStats.tsx";
 
 function MyMenu() {
   const { context, setContext } = useContext(WorkbookContext);
@@ -48,6 +50,10 @@ function MyMenu() {
       handleAdd(data, showDialog);
     } else if (value === "2propz") {
       handle2PropZ(data, showDialog);
+    } else if (value === "ttest") {
+      handleTTest(data, showDialog);
+    } else if (value === "onevarstats") {
+      handleOneVarStats(data, showDialog);
     }
   }
   const items = [
@@ -80,12 +86,20 @@ function MyMenu() {
       value: "yeti",
     },
     {
+      text: "One Variable Stats",
+      value: "onevarstats",
+    },
+    {
       text: "1-Prop z Test",
       value: "add",
     },
     {
       text: "2-Prop z Test",
       value: "2propz",
+    },
+    {
+      text: "t test",
+      value: "ttest",
     },
   ];
   return (

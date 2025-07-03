@@ -31,7 +31,7 @@ function handle2PropZ(
   let selectCol2 = new MyGuiVar("");
   let eventName2 = new MyGuiVar("");
 
-  let altHyp = new MyGuiVar("");
+  let altHyp = new MyGuiVar("p1 != p2");
 
   function zzzTest() {
     let sampleProp1 = 0;
@@ -155,7 +155,7 @@ function handle2PropZ(
       <DrawDownSelection
         variable={altHyp}
         options={["p1 != p2", "p1 > p2", "p1 < p2"]}
-        textLabel="Alternative Hyp: "
+        textLabel="Alternate Hyp: "
         width={100}
       />
 
