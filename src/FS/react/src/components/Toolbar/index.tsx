@@ -53,11 +53,12 @@ import CustomButton from "./CustomButton";
 // import { CustomColor } from "./CustomColor";
 // import CustomBorder from "./CustomBorder";
 // import { FormatSearch } from "../FormatSearch";
-import DownloadCSVButton from '../../../../mine/downloadCSV.tsx'
-import DownloadJsonButton from '../../../../mine/downloadJSON.tsx'
-import LoadButton from '../../../../mine/loadFiles.tsx'
-import MyMenu from '../../../../mine/menu.tsx'
-import About from '../../../../mine/about.tsx'
+import DownloadCSVButton from "../../../../mine/downloadCSV.tsx";
+import DownloadJsonButton from "../../../../mine/downloadJSON.tsx";
+import LoadButton from "../../../../mine/loadFiles.tsx";
+import MyMenu from "../../../../mine/menu.tsx";
+import About from "../../../../mine/about.tsx";
+import MyPlotMenu from "../../../../mine/plotMenu.tsx";
 
 const Toolbar: React.FC<{
   setMoreItems: React.Dispatch<React.SetStateAction<React.ReactNode>>;
@@ -205,7 +206,6 @@ const Toolbar: React.FC<{
   }, [itemLocations, setMoreItems, settings.toolbarItems.length, sheetWidth]);
 
   const getToolbarItem = useCallback(
-
     (name: string, i: number) => {
       // @ts-ignore
       const tooltip = toolbar[name];
@@ -213,29 +213,22 @@ const Toolbar: React.FC<{
         return <Divider key={i} />;
       }
       if (name === "about") {
-          return (
-              <About />
-          )
-    }
-      if (name ==="menu"){
-          return (
-              <MyMenu />
-          )
+        return <About />;
       }
-      if (name==="load"){
-          return (
-              <LoadButton />
-          )
+      if (name === "menu") {
+        return <MyMenu />;
       }
-      if (name==="save"){
-          return (
-              <DownloadJsonButton />
-          )
+      if (name === "plotmenu") {
+        return <MyPlotMenu />;
       }
-      if (name==="download"){
-          return (
-              <DownloadCSVButton />
-          )
+      if (name === "load") {
+        return <LoadButton />;
+      }
+      if (name === "save") {
+        return <DownloadJsonButton />;
+      }
+      if (name === "download") {
+        return <DownloadCSVButton />;
       }
       if (name === "undo") {
         return (

@@ -31,18 +31,12 @@ function handleOneVarStats(
     const colSelect = excelColumnToIndex(selectCol.value as string);
     const freqColSelect = excelColumnToIndex(freqSelectCol.value as string);
     const dataStats = oneVarStats(arr, colSelect, freqColSelect);
-    // let validcnt = 0;
-    // for (let i = 0; i < arr.length; i++) {
-    //   if (arr[i][colSelect] != null && arr[i][colSelect].toString() != "") {
-    //     validcnt++;
-    //   }
-    // }
 
     const tableRes = [
       ["Sample mean", dataStats.mean],
       ["Sum", dataStats.sum],
       ["Sum squares", dataStats.sumSquares],
-      ["sx", dataStats.sampleSD.toFixed(5)],
+      ["Sx", dataStats.sampleSD.toFixed(5)],
       ["Population SD", dataStats.populationSD.toFixed(5)],
       ["n", dataStats.ssize],
       ["MinX", dataStats.min],
@@ -54,7 +48,7 @@ function handleOneVarStats(
     const align: ("left" | "center" | "right")[] = ["left", "center"];
     return (
       <div>
-        <h2>One Variable Statistics</h2>
+        <h2>One-Variable Statistics</h2>
         <Table data={tableRes} align={align} />
         {/* <p>alternate hyp: {altHyp.value.toString()}</p>
         <p>sample prop = {sampleProp}</p>
@@ -66,7 +60,7 @@ function handleOneVarStats(
 
   showDialog(
     <div>
-      <h2>One Variable Statistics</h2>
+      <h2>One-Variable Statistics</h2>
       <DrawDownSelection
         variable={selectCol}
         options={getColNames(data)}

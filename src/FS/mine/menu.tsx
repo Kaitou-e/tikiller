@@ -15,6 +15,7 @@ import handleAdd from "./realstats/handle1PropZ.tsx";
 import handle2PropZ from "./realstats/handle2PropZ.tsx";
 import handleTTest from "./realstats/handleTTest.tsx";
 import handleOneVarStats from "./realstats/handleOneVarStats.tsx";
+import handle2TTest from "./realstats/handle2TTest.tsx";
 
 function MyMenu() {
   const { context, setContext } = useContext(WorkbookContext);
@@ -54,6 +55,8 @@ function MyMenu() {
       handleTTest(data, showDialog);
     } else if (value === "onevarstats") {
       handleOneVarStats(data, showDialog);
+    } else if (value === "2ttest") {
+      handle2TTest(data, showDialog);
     }
   }
   const items = [
@@ -100,6 +103,10 @@ function MyMenu() {
     {
       text: "t test",
       value: "ttest",
+    },
+    {
+      text: "2-Sample t Test",
+      value: "2ttest",
     },
   ];
   return (

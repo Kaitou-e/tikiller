@@ -187,6 +187,7 @@ export const defaultSettings: Required<Settings> = {
     "redo",
     "|",
     "menu",
+    "plotmenu",
     // "format-painter",
     // "clear-format",
     // "|",
@@ -297,7 +298,7 @@ export const defaultSettings: Required<Settings> = {
   generateSheetId: () => uuidv4(),
   hooks: {},
   customToolbarItems: [
-  // DownloadCSVButton
+    // DownloadCSVButton
   ],
   currency: "$",
 };

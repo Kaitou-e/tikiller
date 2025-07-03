@@ -89,6 +89,7 @@ function oneVarStats(
 
   const totalFreq = frequencies.reduce((a, b) => a + b, 0);
   const sum = colData.reduce((acc, val, i) => acc + val * frequencies[i], 0);
+  const sumFreq = colData.reduce((acc, val, i) => acc + frequencies[i], 0);
   const sumSquares = colData.reduce(
     (acc, val, i) => acc + val * val * frequencies[i],
     0
@@ -112,7 +113,7 @@ function oneVarStats(
     median: minitabPercentile(expanded, 50),
     q3: minitabPercentile(expanded, 75),
     max: expanded[expanded.length - 1],
-    ssize: colData.length,
+    ssize: colData.length < sumFreq ? sumFreq : colData.length,
   };
 }
 export default oneVarStats;

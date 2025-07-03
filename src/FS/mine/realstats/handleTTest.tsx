@@ -41,14 +41,6 @@ function handleTTest(
       const dataStats = oneVarStats(arr, colSelect, freqColSelect);
       mSample.setValue(dataStats.mean);
       sampleSD.setValue(dataStats.sampleSD);
-
-      // let validcnt = 0;
-      // for (let i = 0; i < arr.length; i++) {
-      //   if (arr[i][freqColSelect] == null)
-      //     if (arr[i][colSelect] != null && arr[i][colSelect].toString() != "") {
-      //       validcnt++;
-      //     }
-      // }
       sampleSize.setValue(dataStats.ssize);
     }
 
