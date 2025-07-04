@@ -16,6 +16,7 @@ import oneVarStats from "./oneVarStats.tsx";
 function handleTTest(
   data: any[][], // the spreadsheet data in 2d array
   showDialog: (
+    isResult: boolean,
     content: string | React.ReactNode,
     type?: "ok" | "yesno",
     onOk?: () => void,
@@ -91,6 +92,7 @@ function handleTTest(
   }
 
   showDialog(
+    false,
     <div>
       <h2>t Test</h2>
       <NumberInput variable={mNull} textLabel="μ0: " step="0.1" />
@@ -127,7 +129,7 @@ function handleTTest(
     </div>, // above is the dialog content
     "yesno", // the type of dialog yesno or ok
     () => {
-      showDialog(zzzTest(), "ok");
+      showDialog(true, zzzTest(), "ok");
     } // CAll back function when "OK" clicked.
   );
 }

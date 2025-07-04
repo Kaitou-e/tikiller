@@ -1,72 +1,103 @@
 import React from "react";
 import PlotlyChart from "../../plotlyPlot";
+import DropdownSelection from "../../inputs/DrawDown";
+import { excelColumnToIndex, getColNames } from "../../utilities";
+import MyGuiVar from "../../myGuiVar";
 
 function handleBoxPlot(
   data: any[][], // the spreadsheet data in 2d array
   showDialog: (
+    isResult: boolean,
     content: string | React.ReactNode,
     type?: "ok" | "yesno",
     onOk?: () => void,
     onCancel?: () => void
   ) => void
 ) {
-  const scatterData: Plotly.Data[] = [
-    {
-      x: [1, 2, 3, 4],
-      y: [10, 15, 13, 17],
-      type: "scatter",
-      mode: "markers",
-      marker: {
-        color: "rgba(255, 100, 102, 0.7)",
-        size: 14,
-      },
-    },
-  ];
+  let selectCol = new MyGuiVar("");
+  function isMissing(val: any): boolean {
+    return (
+      val === null ||
+      val === undefined ||
+      (typeof val === "string" && val.trim() === "")
+    );
+  }
 
-  const chartLayout: Partial<Plotly.Layout> = {
-    title: {
-      text: "Dynamic Scatter Plot", // REQUIRED
-      font: { size: 20 }, // Optional styling
-      x: 0.5, // Center title
-      // y: 0.95                        // Position from top
-    },
-    xaxis: {
-      title: {
-        text: "X Values", // <-- Required text property
-        font: { size: 14 }, // Optional styling
-      },
-      range: [0, 6],
-    },
-    yaxis: {
-      title: {
-        text: "Y Values", // <-- Required text property
-        font: { size: 14 },
-      },
-      range: [5, 25],
-    },
-    // margin: { t: 30, l: 20, r: 20, b: 20 }, // Reduced bottom margin
-    height: 500, // Fixed height prevents auto-scaling
-    width: 500,
-    hovermode: "closest",
-  };
+  function plotd() {
+    const colSelect = excelColumnToIndex(selectCol.value as string);
+    const colData: number[] = [];
+    for (let i = 0; i < data.length; i++) {
+      const value = data[i][colSelect];
 
+      if (isMissing(value) || isNaN(Number(value))) {
+        continue;
+      }
+      colData.push(Number(value));
+    }
+
+    const scatterData: Plotly.Data[] = [
+      {
+        x: colData,
+        orientation: "h",
+        type: "box",
+        name: selectCol.value.toString(),
+      },
+    ];
+
+    const chartLayout: Partial<Plotly.Layout> = {
+      title: {
+        text: "Dynamic Box Plot", // REQUIRED
+        font: { size: 20 }, // Optional styling
+        x: 0.5, // Center title
+        // y: 0.95                        // Position from top
+      },
+      xaxis: {
+        title: {
+          text: "Values", // <-- Required text property
+          font: { size: 10 }, // Optional styling
+        },
+        // range: [0, 6],
+      },
+      // margin: { t: 30, l: 20, r: 20, b: 20 }, // Reduced bottom margin
+      height: 300, // Fixed height prevents auto-scaling
+      width: 500,
+      hovermode: "closest",
+    };
+    console.log(scatterData);
+
+    return (
+      <>
+        <p>
+          This implementation provides a flexible, type-safe solution for
+          rendering tables in React with Plotly, supporting both direct data
+          input and API-driven JSON configurations.
+        </p>
+        <div>
+          <PlotlyChart data={scatterData} layout={chartLayout} />
+        </div>
+        <p>
+          This implementation provides a flexible, type-safe solution for
+          rendering tables in React with Plotly, supporting both direct data
+          input and API-driven JSON configurations.
+        </p>
+      </>
+    );
+  }
   showDialog(
-    <>
-      <p>
-        This implementation provides a flexible, type-safe solution for
-        rendering tables in React with Plotly, supporting both direct data input
-        and API-driven JSON configurations.
-      </p>
-      <div>
-        <PlotlyChart data={scatterData} layout={chartLayout} />
-      </div>
-      <p>
-        This implementation provides a flexible, type-safe solution for
-        rendering tables in React with Plotly, supporting both direct data input
-        and API-driven JSON configurations.
-      </p>
-    </>,
-    "ok"
+    false,
+    <div>
+      <h2>Boxplot</h2>
+      <DropdownSelection
+        variable={selectCol}
+        options={getColNames(data)}
+        textLabel="Select a column: "
+        width={100}
+      />
+    </div>,
+    "yesno", // the type of dialog yesno or ok
+    () => {
+      showDialog(true, plotd(), "ok");
+    } // CAll back function when "OK" clicked.
   );
 }
 

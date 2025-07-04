@@ -13,6 +13,23 @@ function MyPlotMenu() {
   const { context, setContext } = useContext(WorkbookContext);
   const { showDialog, hideDialog } = useDialog();
 
+  function showDialogWithHistory(
+    isResult: boolean,
+    content: string | React.ReactNode,
+    type?: "ok" | "yesno",
+    onOk?: () => void,
+    onCancel?: () => void
+  ) {
+    // const { showDialog, hideDialog } = useDialog();
+    // const { context, setContext, settings, refs } = useContext(WorkbookContext);
+    if (isResult) {
+      setContext((draftCtx) => {
+        draftCtx.resHistory.push(content);
+      });
+    }
+    showDialog(content, type, onOk, onCancel);
+  }
+
   function handleMyPlotMenuClick(
     // ctx: Context,
     value: string | null = null
@@ -23,7 +40,7 @@ function MyPlotMenu() {
 
     if (!value) return;
     if (value === "boxplot") {
-      handleBoxPlot(data, showDialog);
+      handleBoxPlot(data, showDialogWithHistory);
     }
   }
   const items = [

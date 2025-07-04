@@ -4,7 +4,7 @@ import PlotlyChart from "../plotlyPlot";
 function handleMoon(
   data: any[][], // the spreadsheet data in 2d array
   showDialog: (
-      isResult:boolean,
+    isResult: boolean,
     content: string | React.ReactNode,
     type?: "ok" | "yesno",
     onOk?: () => void,
@@ -50,8 +50,10 @@ function handleMoon(
     width: 500,
     hovermode: "closest",
   };
+  console.log(scatterData);
 
-  showDialog(true,
+  showDialog(
+    true,
     <>
       <p>
         This implementation provides a flexible, type-safe solution for

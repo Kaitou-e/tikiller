@@ -16,6 +16,7 @@ import oneVarStats from "./oneVarStats.tsx";
 function handleOneVarStats(
   data: any[][], // the spreadsheet data in 2d array
   showDialog: (
+    isResult: boolean,
     content: string | React.ReactNode,
     type?: "ok" | "yesno",
     onOk?: () => void,
@@ -33,7 +34,7 @@ function handleOneVarStats(
     const dataStats = oneVarStats(arr, colSelect, freqColSelect);
 
     const tableRes = [
-      ["Sample mean", dataStats.mean],
+      ["Sample mean", dataStats.mean.toFixed(5)],
       ["Sum", dataStats.sum],
       ["Sum squares", dataStats.sumSquares],
       ["Sx", dataStats.sampleSD.toFixed(5)],
@@ -59,6 +60,7 @@ function handleOneVarStats(
   }
 
   showDialog(
+    false,
     <div>
       <h2>One-Variable Statistics</h2>
       <DrawDownSelection
@@ -77,7 +79,7 @@ function handleOneVarStats(
     </div>, // above is the dialog content
     "yesno", // the type of dialog yesno or ok
     () => {
-      showDialog(zzzTest(), "ok");
+      showDialog(true, zzzTest(), "ok");
     } // CAll back function when "OK" clicked.
   );
 }

@@ -17,6 +17,7 @@ import twoSampleTTest from "./twoTTest.tsx";
 function handle2TTest(
   data: any[][], // the spreadsheet data in 2d array
   showDialog: (
+    isResult: boolean,
     content: string | React.ReactNode,
     type?: "ok" | "yesno",
     onOk?: () => void,
@@ -116,6 +117,7 @@ function handle2TTest(
   }
 
   showDialog(
+    false,
     <div>
       <h2>2-Sample t Test</h2>
       <DrawDownSelection
@@ -170,7 +172,7 @@ function handle2TTest(
     </div>, // above is the dialog content
     "yesno", // the type of dialog yesno or ok
     () => {
-      showDialog(zzzTest(), "ok");
+      showDialog(true, zzzTest(), "ok");
     } // CAll back function when "OK" clicked.
   );
 }

@@ -27,17 +27,17 @@ function MyMenu() {
     content: string | React.ReactNode,
     type?: "ok" | "yesno",
     onOk?: () => void,
-     onCancel?: () => void,
-    ){
-        // const { showDialog, hideDialog } = useDialog();
-        // const { context, setContext, settings, refs } = useContext(WorkbookContext);
-        if (isResult){
-                setContext((draftCtx)=>{
-                draftCtx.resHistory.push(content);
-                })
-        }
-        showDialog( content,type,onOk,onCancel);
+    onCancel?: () => void
+  ) {
+    // const { showDialog, hideDialog } = useDialog();
+    // const { context, setContext, settings, refs } = useContext(WorkbookContext);
+    if (isResult) {
+      setContext((draftCtx) => {
+        draftCtx.resHistory.push(content);
+      });
     }
+    showDialog(content, type, onOk, onCancel);
+  }
 
   function handleMyMenuClick(
     // ctx: Context,
@@ -66,15 +66,15 @@ function MyMenu() {
     } else if (value === "yeti") {
       handleYeti(data, showDialog);
     } else if (value === "add") {
-      handleAdd(data, showDialog);
+      handleAdd(data, showDialogWithHistory);
     } else if (value === "2propz") {
-      handle2PropZ(data, showDialog);
+      handle2PropZ(data, showDialogWithHistory);
     } else if (value === "ttest") {
-      handleTTest(data, showDialog);
+      handleTTest(data, showDialogWithHistory);
     } else if (value === "onevarstats") {
-      handleOneVarStats(data, showDialog);
+      handleOneVarStats(data, showDialogWithHistory);
     } else if (value === "2ttest") {
-      handle2TTest(data, showDialog);
+      handle2TTest(data, showDialogWithHistory);
     }
   }
   const items = [
