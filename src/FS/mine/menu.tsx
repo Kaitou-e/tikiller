@@ -125,6 +125,22 @@ function MyMenu() {
     {
       text: "2-Sample t Test",
       value: "2ttest",
+    }, /////////////////////////
+    {
+      text: "1-Prop z interval",
+      value: "add",
+    },
+    {
+      text: "2-Prop z interval",
+      value: "2propz",
+    },
+    {
+      text: "t interval",
+      value: "ttest",
+    },
+    {
+      text: "2-Sample t interval",
+      value: "2ttest",
     },
   ];
   return (

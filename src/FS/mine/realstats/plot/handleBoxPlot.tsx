@@ -1,7 +1,7 @@
 import React from "react";
 import PlotlyChart from "../../plotlyPlot";
 import DropdownSelection from "../../inputs/DrawDown";
-import { excelColumnToIndex, getColNames } from "../../utilities";
+import { excelColumnToIndex, getColNames, getValueGrid } from "../../utilities";
 import MyGuiVar from "../../myGuiVar";
 
 function handleBoxPlot(
@@ -22,12 +22,12 @@ function handleBoxPlot(
       (typeof val === "string" && val.trim() === "")
     );
   }
-
+  const arr = getValueGrid(data);
   function plotd() {
     const colSelect = excelColumnToIndex(selectCol.value as string);
-    const colData: number[] = [];
-    for (let i = 0; i < data.length; i++) {
-      const value = data[i][colSelect];
+    let colData: number[] = [];
+    for (let i = 0; i < arr.length; i++) {
+      const value = arr[i][colSelect];
 
       if (isMissing(value) || isNaN(Number(value))) {
         continue;
@@ -63,23 +63,13 @@ function handleBoxPlot(
       width: 500,
       hovermode: "closest",
     };
-    console.log(scatterData);
+    console.log(data);
 
     return (
       <>
-        <p>
-          This implementation provides a flexible, type-safe solution for
-          rendering tables in React with Plotly, supporting both direct data
-          input and API-driven JSON configurations.
-        </p>
         <div>
           <PlotlyChart data={scatterData} layout={chartLayout} />
         </div>
-        <p>
-          This implementation provides a flexible, type-safe solution for
-          rendering tables in React with Plotly, supporting both direct data
-          input and API-driven JSON configurations.
-        </p>
       </>
     );
   }
