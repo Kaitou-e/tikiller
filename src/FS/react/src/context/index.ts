@@ -44,6 +44,7 @@ const WorkbookContext = React.createContext<{
   refs: RefValues;
   handleUndo: () => void;
   handleRedo: () => void;
+  // resHistory: [];
 }>({
   context: defaultContext(defaultRefs),
   setContext: () => {},
@@ -60,6 +61,7 @@ const WorkbookContext = React.createContext<{
     cellArea: React.createRef<HTMLDivElement | null>(),
     workbookContainer: React.createRef<HTMLDivElement | null>(),
   },
+  // resHistory: [],
 });
 
 export default WorkbookContext;

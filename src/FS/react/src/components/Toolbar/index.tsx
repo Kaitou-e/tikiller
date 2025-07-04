@@ -59,6 +59,7 @@ import LoadButton from "../../../../mine/loadFiles.tsx";
 import MyMenu from "../../../../mine/menu.tsx";
 import About from "../../../../mine/about.tsx";
 import MyPlotMenu from "../../../../mine/plotMenu.tsx";
+import History from "../../../../mine/history.tsx";
 
 const Toolbar: React.FC<{
   setMoreItems: React.Dispatch<React.SetStateAction<React.ReactNode>>;
@@ -211,6 +212,9 @@ const Toolbar: React.FC<{
       const tooltip = toolbar[name];
       if (name === "|") {
         return <Divider key={i} />;
+      }
+      if (name === "history"){
+          return <History />
       }
       if (name === "about") {
         return <About />;

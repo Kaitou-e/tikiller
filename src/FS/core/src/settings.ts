@@ -188,6 +188,7 @@ export const defaultSettings: Required<Settings> = {
     "|",
     "menu",
     "plotmenu",
+    "history",
     // "format-painter",
     // "clear-format",
     // "|",

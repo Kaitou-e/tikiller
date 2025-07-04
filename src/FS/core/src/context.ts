@@ -220,6 +220,7 @@ export type Context = {
   sheetFocused: boolean; // property to track sheet focus for keyboard navigation
 
   getRefs: () => RefValues;
+  resHistory: any[];
 };
 
 export function defaultContext(refs: RefValues): Context {
@@ -492,6 +493,7 @@ export function defaultContext(refs: RefValues): Context {
     hooks: {},
 
     getRefs: () => refs,
+    resHistory: [],
   };
 }
 

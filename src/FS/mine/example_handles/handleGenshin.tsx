@@ -12,6 +12,7 @@ import MyGuiVar from "../myGuiVar.tsx";
 function handleGenshin(
   data: any[][], // the spreadsheet data in 2d array
   showDialog: (
+      isResult: boolean,
     content: string | React.ReactNode,
     type?: "ok" | "yesno",
     onOk?: () => void,
@@ -47,7 +48,7 @@ function handleGenshin(
     );
   }
 
-  showDialog(
+  showDialog(false,
     <div>
       <h3>OG Player ? Here? </h3>
       <NumberInput variable={alpha} textLabel="Alpha: " step="0.1" />
@@ -67,7 +68,7 @@ function handleGenshin(
     </div>, // above is the dialog content
     "yesno", // the type of dialog yesno or ok
     () => {
-      showDialog(onClick(), "ok");
+      showDialog(true, onClick(), "ok");
     } // CAll back function when "OK" clicked.
   );
 }

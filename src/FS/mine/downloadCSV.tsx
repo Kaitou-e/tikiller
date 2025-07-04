@@ -38,65 +38,6 @@ function arrayToCSV(data: (string | number)[][], delimiter = ','): string {
     .join('\n');
 }
 
-// function downloadCSV(content: string, filename: string): void {
-//   const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
-//   const url = URL.createObjectURL(blob);
-//   const link = document.createElement('a');
-//   link.href = url;
-//   link.download = filename;
-//   link.click();
-//   URL.revokeObjectURL(url);
-// }
-
-// function downloadCSV(content: string, defaultFilename: string): void {
-//   const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
-//
-//   // Handle IE/Edge browsers
-//   if (window.navigator && (window.navigator as any).msSaveBlob) {
-//     (window.navigator as any).msSaveBlob(blob, defaultFilename);
-//     return;
-//   }
-//
-//   // Handle modern browsers
-//   const url = URL.createObjectURL(blob);
-//   const link = document.createElement('a');
-//
-//   // Prompt for filename
-//   const userFilename = prompt('Enter filename:', defaultFilename);
-//   if (!userFilename) return;  // User canceled prompt
-//
-//   link.href = url;
-//   link.download = userFilename;
-//   document.body.appendChild(link);  // Required for Firefox
-//   link.click();
-//   document.body.removeChild(link);
-//   URL.revokeObjectURL(url);
-// }
-//
-
-// function findMinCoveringSubarray(grid) {
-//   let maxRow = -1;
-//   let maxCol = -1;
-//
-//   // Find the farthest non-null element's row and column
-//   for (let row = 0; row < grid.length; row++) {
-//     for (let col = 0; col < grid[row].length; col++) {
-//       if (grid[row][col] !== null) {
-//         maxRow = Math.max(maxRow, row);
-//         maxCol = Math.max(maxCol, col);
-//       }
-//     }
-//   }
-//
-//   // Handle all-null case
-//   if (maxRow === -1 || maxCol === -1) return [];
-//
-//   // Slice the grid to the required bounds
-//   return grid
-//     .slice(0, maxRow + 1)
-//     .map(row => row.slice(0, maxCol + 1));
-// }
-
 function DownloadCSVButton(){
     const tooltip= "Download to CSV"
     const icon= iconDownload({size:24, color:"#202020", stroke:1})

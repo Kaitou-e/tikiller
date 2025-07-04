@@ -16,10 +16,28 @@ import handle2PropZ from "./realstats/handle2PropZ.tsx";
 import handleTTest from "./realstats/handleTTest.tsx";
 import handleOneVarStats from "./realstats/handleOneVarStats.tsx";
 import handle2TTest from "./realstats/handle2TTest.tsx";
+// import {showDialogWithHistory} from "./history.tsx";
 
 function MyMenu() {
   const { context, setContext } = useContext(WorkbookContext);
   const { showDialog, hideDialog } = useDialog();
+
+  function showDialogWithHistory(
+    isResult: boolean,
+    content: string | React.ReactNode,
+    type?: "ok" | "yesno",
+    onOk?: () => void,
+     onCancel?: () => void,
+    ){
+        // const { showDialog, hideDialog } = useDialog();
+        // const { context, setContext, settings, refs } = useContext(WorkbookContext);
+        if (isResult){
+                setContext((draftCtx)=>{
+                draftCtx.resHistory.push(content);
+                })
+        }
+        showDialog( content,type,onOk,onCancel);
+    }
 
   function handleMyMenuClick(
     // ctx: Context,
@@ -38,11 +56,11 @@ function MyMenu() {
         showDialog("dafenqi", "ok");
       });
     } else if (value === "genshin") {
-      handleGenshin(data, showDialog);
+      handleGenshin(data, showDialogWithHistory);
     } else if (value === "zzz") {
       handleZZZ(data, showDialog);
     } else if (value === "moon") {
-      handleMoon(data, showDialog);
+      handleMoon(data, showDialogWithHistory);
     } else if (value === "neg") {
       handleNeg(data, showDialog);
     } else if (value === "yeti") {
