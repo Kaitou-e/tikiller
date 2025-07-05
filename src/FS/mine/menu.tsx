@@ -1,8 +1,8 @@
 // import handleMyMenuClick from './menuClick.tsx'
-import { useContext} from "react";
+import { useContext } from "react";
 // import _ from "lodash";
 import Combo from "../react/src/components/Toolbar/Combo.tsx";
-import {MenuDivider} from "../react/src/components/Toolbar/Divider.tsx";
+import { MenuDivider } from "../react/src/components/Toolbar/Divider.tsx";
 import Select, { Option } from "../react/src/components/Toolbar/Select.tsx";
 import WorkbookContext from "../react/src/context";
 // import { Context } from '../core/src/context.ts'
@@ -13,18 +13,15 @@ import handleZZZ from "./example_handles/handleZZZ.tsx";
 import handleMoon from "./example_handles/handleMoon.tsx";
 import handleNeg from "./example_handles/handleNeg.tsx";
 import handleYeti from "./example_handles/handleYeti.tsx";
-import handleAdd from "./realstats/handle1PropZ.tsx";
-import handle2PropZ from "./realstats/handle2PropZ.tsx";
-import handleTTest from "./realstats/handleTTest.tsx";
-import handleOneVarStats from "./realstats/handleOneVarStats.tsx";
-import handle2TTest from "./realstats/handle2TTest.tsx";
- // import {showDialogWithHistory} from "./history.tsx";
+import SubMenuCI from "./submenus/submenuCI.tsx";
+// import {showDialogWithHistory} from "./history.tsx";
 // import SubMenuOne from "./submenu1.tsx";
-import SubMenuSan from "./submenu3.tsx";
-import SubMenuTwo from "./submenu2.tsx";
+import SubMenuSan from "./submenus/submenu3.tsx";
+import SubMenuTwo from "./submenus/submenu2.tsx";
+import SubMenuDist from "./submenus/submenuDist.tsx";
 
 function MyMenu() {
-  const { context, setContext,refs } = useContext(WorkbookContext);
+  const { context, setContext, refs } = useContext(WorkbookContext);
   const { showDialog, hideDialog } = useDialog();
 
   function showDialogWithHistory(
@@ -56,8 +53,8 @@ function MyMenu() {
     // if (value === "|" ){
     //     return <MenuDivider />
     // }
-   // if (value === "highlight") {
-   //    }
+    // if (value === "highlight") {
+    //    }
     else if (value === "mona") {
       showDialog("Mona no Lisa", "ok");
     } else if (value === "lisa") {
@@ -75,16 +72,6 @@ function MyMenu() {
       handleNeg(data, showDialog);
     } else if (value === "yeti") {
       handleYeti(data, showDialog);
-    } else if (value === "add") {
-      handleAdd(data, showDialogWithHistory);
-    } else if (value === "2propz") {
-      handle2PropZ(data, showDialogWithHistory);
-    } else if (value === "ttest") {
-      handleTTest(data, showDialogWithHistory);
-    } else if (value === "onevarstats") {
-      handleOneVarStats(data, showDialogWithHistory);
-    } else if (value === "2ttest") {
-      handle2TTest(data, showDialogWithHistory);
     }
   }
   const items = [
@@ -105,16 +92,8 @@ function MyMenu() {
       value: "zzz",
     },
     {
-        text: "whatever",
-        value:"sub3",
-    },
-    {
       text: "Moooon 3",
       value: "moon",
-    },
-    {
-        text: "sub mennneu",
-        value: "highlight",
     },
     {
       text: "Can I use negotiation?",
@@ -123,77 +102,62 @@ function MyMenu() {
     {
       text: "water bootle",
       value: "yeti",
-     },
-     {
-         text: "sdf",
-         value:"|",
-     },
-    {
-      text: "One Variable Stats",
-      value: "onevarstats",
     },
     {
-      text: "1-Prop z Test",
-      value: "add",
+      text: "sdf",
+      value: "|",
+    },
+    /////////////////////////
+    {
+      text: "whatever",
+      value: "sub3",
     },
     {
-      text: "2-Prop z Test",
-      value: "2propz",
+      text: "Distributions",
+      value: "subdist",
     },
     {
-      text: "t test",
-      value: "ttest",
+      text: "subci",
+      value: "subci",
     },
     {
-      text: "2-Sample t Test",
-      value: "2ttest",
-    }, /////////////////////////
-    {
-      text: "1-Prop z interval",
-      value: "add",
-    },
-    {
-      text: "2-Prop z interval",
-      value: "2propz",
-    },
-    {
-      text: "t interval",
-      value: "ttest",
-    },
-    {
-      text: "2-Sample t interval",
-      value: "2ttest",
+      text: "sub mennneu",
+      value: "highlight",
     },
   ];
 
   return (
     <Combo text="Menuuuu" key="MyMenu" tooltip="Ehhhhh....">
       {(setOpen) => (
-        <Select  style={{ overflow: "visible" }} >
+        <Select style={{ overflow: "visible" }}>
           {items.map(({ text, value }) => {
-           if (value==="|"){
+            if (value === "|") {
               return <MenuDivider />;
-           } else if (value==="highlight"){
-            return <SubMenuTwo setOpen={setOpen} />;
-          } else if (value==="sub3"){
+            } else if (value === "highlight") {
+              return <SubMenuTwo setOpen={setOpen} />;
+            } else if (value === "sub3") {
               return <SubMenuSan setOpen={setOpen} />;
-          } else {
-           return (
-            <Option
-              key={value}
-              onClick={() => {
-                handleMyMenuClick(value);
-                setOpen(false);
-              }}
-            > 
-              <div className="fortune-toolbar-menu-line">
-                {text}
-                {/* <SVGIcon name={value} />
+            } else if (value == "subci") {
+              return <SubMenuCI setOpen={setOpen} />;
+            } else if (value == "subdist") {
+              return <SubMenuDist setOpen={setOpen} />;
+            } else {
+              return (
+                <Option
+                  key={value}
+                  onClick={() => {
+                    handleMyMenuClick(value);
+                    setOpen(false);
+                  }}
+                >
+                  <div className="fortune-toolbar-menu-line">
+                    {text}
+                    {/* <SVGIcon name={value} />
                          Can insert 24x24 SVG icon here */}
-              </div>
-            </Option>
-            );
-          }
+                  </div>
+                </Option>
+              );
+            }
           })}
         </Select>
       )}

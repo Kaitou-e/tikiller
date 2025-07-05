@@ -1,16 +1,16 @@
 import React, { useContext, useCallback } from "react";
- import _ from "lodash";
-import { useDialog } from "../react/src/hooks/useDialog.tsx";
-import WorkbookContext from "../react/src/context";
-import Select, { Option } from "../react/src/components/Toolbar/Select.tsx";
-import SVGIcon from "../react/src/components/SVGIcon.tsx";
- 
+import _ from "lodash";
+import { useDialog } from "../../react/src/hooks/useDialog.tsx";
+import WorkbookContext from "../../react/src/context/index.ts";
+import Select, { Option } from "../../react/src/components/Toolbar/Select.tsx";
+import SVGIcon from "../../react/src/components/SVGIcon.tsx";
+
 const SubMenuOne: React.FC<{
-      text: string;
-        setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  text: string;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ text, setOpen }) => {
-// function SubMenuOne(text:string){
-  const { context, setContext,refs } = useContext(WorkbookContext);
+  // function SubMenuOne(text:string){
+  const { context, setContext, refs } = useContext(WorkbookContext);
   const { showDialog } = useDialog();
 
   const showSubMenu = useCallback(
@@ -68,47 +68,42 @@ const SubMenuOne: React.FC<{
     },
     []
   );
-        return (
-          <Option
-          key={text}
-            onMouseEnter={showSubMenu}
-            onMouseLeave={hideSubMenu}
-          >
-            <div className="fortune-toolbar-menu-line" key={`div${text}`}>
-            {text}
-             <SVGIcon name="rightArrow" width={18} />
-              <div
-                className="condition-format-sub-menu"
-                style={{
-                  display: "none",
-                  width: 150,
-                }}
-              >
-                {[
-                  { text: "greaterThan", value: ">" },
-                  { text: "lessThan", value: "<" },
-                  { text: "between", value: "[]" },
-                  { text: "equal", value: "=" },
-                  { text: "textContains", value: "()" },
-                  { text: "duplicateValue", value: "##" },
-                ].map((v) => (
-                  <div
-                    className="condition-format-item"
-                    key={v.text}
-                    onClick={() => {
-                        setOpen(false);
-                      showDialog("sdfs","ok");
-                    }}
-                    tabIndex={0}
-                  >
-                  {v.text}
-                  </div>
-                ))}
-              </div>
+  return (
+    <Option key={text} onMouseEnter={showSubMenu} onMouseLeave={hideSubMenu}>
+      <div className="fortune-toolbar-menu-line" key={`div${text}`}>
+        {text}
+        <SVGIcon name="rightArrow" width={18} />
+        <div
+          className="condition-format-sub-menu"
+          style={{
+            display: "none",
+            width: 150,
+          }}
+        >
+          {[
+            { text: "greaterThan", value: ">" },
+            { text: "lessThan", value: "<" },
+            { text: "between", value: "[]" },
+            { text: "equal", value: "=" },
+            { text: "textContains", value: "()" },
+            { text: "duplicateValue", value: "##" },
+          ].map((v) => (
+            <div
+              className="condition-format-item"
+              key={v.text}
+              onClick={() => {
+                setOpen(false);
+                showDialog("sdfs", "ok");
+              }}
+              tabIndex={0}
+            >
+              {v.text}
             </div>
-          </Option>
-        );
-
-}
+          ))}
+        </div>
+      </div>
+    </Option>
+  );
+};
 
 export default SubMenuOne;
