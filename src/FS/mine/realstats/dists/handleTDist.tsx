@@ -21,9 +21,9 @@ export function handleTPdf(
       <div>
         <h2>t Pdf</h2>
         <p>
-          tPdf({xVal.value.toString()}, {df.value.toString()}) =
+          tPdf({xVal.value.toString()}, {df.value.toString()}) ={" "}
+          {distres.toFixed(6)}
         </p>
-        <p>{distres.toFixed(6)}</p>
       </div>
     );
   }
@@ -72,9 +72,8 @@ export function handleTCdf(
         <h2>t Cdf</h2>
         <p>
           tCdf({lowb.value.toString()}, {upb.value.toString()},{" "}
-          {sd.value.toString()}) =
+          {sd.value.toString()}) = {distres.toFixed(4)}
         </p>
-        <p>{distres.toFixed(4)}</p>
       </div>
     );
   }
@@ -120,9 +119,9 @@ export function handleInvT(
       <div>
         <h2>Inverse t</h2>
         <p>
-          invt({area.value.toString()}, {sd.value.toString()}) =
+          invt({area.value.toString()}, {sd.value.toString()}) ={" "}
+          {distres.toFixed(6)}
         </p>
-        <p>{distres.toFixed(6)}</p>
       </div>
     );
   }

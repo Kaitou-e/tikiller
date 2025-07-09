@@ -27,9 +27,8 @@ export function handleNormPdf(
         <h2>Normal Pdf</h2>
         <p>
           normPdf({xVal.value.toString()}, {mean.value.toString()},{" "}
-          {sd.value.toString()}) =
+          {sd.value.toString()}) = {distres.toFixed(6)}
         </p>
-        <p>{distres.toFixed(6)}</p>
       </div>
     );
   }
@@ -76,9 +75,8 @@ export function handleNormCdf(
         <h2>Normal Cdf</h2>
         <p>
           normCdf({lowb.value.toString()}, {upb.value.toString()},{" "}
-          {mean.value.toString()}, {sd.value.toString()}) =
+          {mean.value.toString()}, {sd.value.toString()}) = {distres.toFixed(4)}
         </p>
-        <p>{distres.toFixed(4)}</p>
       </div>
     );
   }
@@ -127,9 +125,8 @@ export function handleInvNorm(
         <h2>Inverse Normal</h2>
         <p>
           invNorm({area.value.toString()}, {mean.value.toString()},{" "}
-          {sd.value.toString()}) =
+          {sd.value.toString()}) = {distres.toFixed(6)}
         </p>
-        <p>{distres.toFixed(6)}</p>
       </div>
     );
   }

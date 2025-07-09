@@ -1,6 +1,7 @@
 import { pmf, cdf } from "@stdlib/stats-base-dists-binomial";
 import NumberInput from "../../inputs/NumberInput.tsx";
 import MyGuiVar from "../../myGuiVar.tsx";
+import { pdf } from "@stdlib/stats/base/dists/arcsine";
 
 export function handleBiPdf(
   showDialog: (
@@ -27,9 +28,8 @@ export function handleBiPdf(
         <h2>Binomial Pdf</h2>
         <p>
           binomPdf({sd.value.toString()}, {mean.value.toString()},{" "}
-          {xVal.value.toString()}) =
+          {xVal.value.toString()}) = {distres.toFixed(6)}
         </p>
-        <p>{distres.toFixed(6)}</p>
       </div>
     );
   }
@@ -67,18 +67,22 @@ export function handleBiCdf(
     if (Number(upb.value) < Number(lowb.value)) {
       return <div>Error: Upper bound has to be greater than lower bound</div>;
     }
-    const distres =
-      cdf(Number(upb.value), Number(mean.value), Number(sd.value)) -
-      cdf(Number(lowb.value), Number(mean.value), Number(sd.value));
+    let distres = 0;
+    for (let i = Number(lowb.value); i <= Number(upb.value); i++) {
+      distres += pmf(i, Number(mean.value), Number(sd.value));
+    }
+    // const distres =
+    //   cdf(Number(upb.value), Number(mean.value), Number(sd.value)) -
+    //   cdf(Number(lowb.value), Number(mean.value), Number(sd.value));
 
     return (
       <div>
         <h2>Binomial Cdf</h2>
         <p>
           binomCdf({mean.value.toString()}, {sd.value.toString()},{" "}
-          {lowb.value.toString()}, {upb.value.toString()}) =
+          {lowb.value.toString()}, {upb.value.toString()}) ={" "}
+          {distres.toFixed(4)}
         </p>
-        <p>{distres.toFixed(4)}</p>
       </div>
     );
   }

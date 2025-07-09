@@ -15,15 +15,15 @@ export function handleGeoPdf(
   let df = new MyGuiVar(0.5);
 
   function zzzTest() {
-    const distres = pmf(Number(xVal.value), Number(df.value));
+    const distres = pmf(Number(xVal.value) - 1, Number(df.value));
 
     return (
       <div>
         <h2>Geometric Pdf</h2>
         <p>
-          geomPdf({xVal.value.toString()}, {df.value.toString()}) =
+          geomPdf({xVal.value.toString()}, {df.value.toString()}) ={" "}
+          {distres.toFixed(6)}
         </p>
-        <p>{distres.toFixed(6)}</p>
       </div>
     );
   }
@@ -60,16 +60,15 @@ export function handleGeoCdf(
       return <div>Error: Upper bound has to be greater than lower bound</div>;
     }
     const distres =
-      cdf(Number(upb.value), Number(sd.value)) -
-      cdf(Number(lowb.value), Number(sd.value));
+      cdf(Number(upb.value) - 1, Number(sd.value)) -
+      cdf(Number(lowb.value) - 1, Number(sd.value));
     return (
       <div>
         <h2>Geometric Cdf</h2>
         <p>
           geomCdf({lowb.value.toString()}, {upb.value.toString()},{" "}
-          {sd.value.toString()}) =
+          {sd.value.toString()}) = {distres.toFixed(4)}
         </p>
-        <p>{distres.toFixed(4)}</p>
       </div>
     );
   }
