@@ -13,6 +13,14 @@ import {
   handleInvT,
   handleTCdf,
 } from "../realstats/dists/handleTDist.tsx";
+import {
+  handleBiCdf,
+  handleBiPdf,
+} from "../realstats/dists/handleBinomDist.tsx";
+import {
+  handleGeoCdf,
+  handleGeoPdf,
+} from "../realstats/dists/handleGeoDist.tsx";
 
 const SubMenuSan: React.FC<{
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -92,9 +100,13 @@ const SubMenuSan: React.FC<{
     } else if (value === "invt") {
       handleInvT(showDialogWithHistory);
     } else if (value === "bipdf") {
+      handleBiPdf(showDialogWithHistory);
     } else if (value === "bicdf") {
+      handleBiCdf(showDialogWithHistory);
     } else if (value === "geopdf") {
+      handleGeoPdf(showDialogWithHistory);
     } else if (value === "geocdf") {
+      handleGeoCdf(showDialogWithHistory);
     }
   };
 
