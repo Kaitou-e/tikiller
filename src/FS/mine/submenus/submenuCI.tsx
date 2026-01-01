@@ -2,12 +2,15 @@ import { useDialog } from "../../react/src/hooks/useDialog.tsx";
 import { useContext } from "react";
 import { getFlowdata } from "../../core/src/index.ts";
 import WorkbookContext from "../../react/src/context/index.ts";
-import handleAdd from "../realstats/handle1PropZ.tsx";
-import handle2PropZ from "../realstats/handle2PropZ.tsx";
 import SubMenu from "./submenu.tsx";
-import handle2TTest from "../realstats/handle2TTest.tsx";
-import handleOneVarStats from "../realstats/handleOneVarStats.tsx";
-import handleTTest from "../realstats/handleTTest.tsx";
+import {
+  handle1PropZInt,
+  handle2PropZInt,
+} from "../realstats/confidenceints/handleZInts.tsx";
+import {
+  handle2SampleTInt,
+  handleTInt,
+} from "../realstats/confidenceints/handleTInts.tsx";
 
 const SubMenuSan: React.FC<{
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -51,10 +54,13 @@ const SubMenuSan: React.FC<{
   ];
   const handleSubMenuClicks = (value: string) => {
     if (value === "1pz") {
-      handleOneVarStats(data, showDialogWithHistory);
+      handle1PropZInt(showDialogWithHistory);
     } else if (value === "2pz") {
+      handle2PropZInt(showDialogWithHistory);
     } else if (value === "tci") {
+      handleTInt(showDialogWithHistory);
     } else if (value === "2st") {
+      handle2SampleTInt(showDialogWithHistory);
     }
   };
 

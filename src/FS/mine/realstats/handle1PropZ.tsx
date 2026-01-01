@@ -120,19 +120,6 @@ function handleAdd(
     );
   }
 
-  function onClick() {
-    console.log(exclRow1.value);
-    return (
-      <div className="textboxs">
-        <p>Inputed event cnt is "{eventCNT.value}".</p>
-        <p>inputed sample size {sampleSize.value} </p>
-        <p>exclude row 1 {exclRow1.value.toString()}.</p>
-        <p>the selected column = {selectCol.value} </p>
-        <p> the event name = {eventName.value} </p>
-      </div>
-    );
-  }
-
   showDialog(
     false,
     <div>

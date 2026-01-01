@@ -48,6 +48,14 @@ const SubMenuSan: React.FC<{
       text: "2-Sample t Test",
       value: "2ttest",
     }, /////////////////////////
+    {
+      text: "χ2 GOF",
+      value: "chigof",
+    },
+    {
+      text: "χ2 2-way Test",
+      value: "chi2way",
+    },
   ];
   const handleSubMenuClicks = (value: string) => {
     if (value === "add") {
@@ -60,6 +68,8 @@ const SubMenuSan: React.FC<{
       handleOneVarStats(data, showDialogWithHistory);
     } else if (value === "2ttest") {
       handle2TTest(data, showDialogWithHistory);
+    } else if (value === "chigof") {
+    } else if (value === "chi2way") {
     }
   };
 
