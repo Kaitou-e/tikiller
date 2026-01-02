@@ -12,6 +12,7 @@ import handleDotPlot from "./realstats/plot/handleDotPlot.tsx";
 import handleScatterPlot from "./realstats/plot/handleScatterPlot.tsx";
 import handleLinReg from "./realstats/plot/handleLinReg.tsx";
 import handleResidual from "./realstats/plot/handleResidual.tsx";
+import handleHistogram from "./realstats/plot/handleHist.tsx";
 
 function MyPlotMenu() {
   const { context, setContext } = useContext(WorkbookContext);
@@ -58,6 +59,9 @@ function MyPlotMenu() {
     if (value === "resid") {
       handleResidual(data, showDialogWithHistory);
     }
+    if (value === "histogram") {
+      handleHistogram(data, showDialogWithHistory);
+    }
   }
   const items = [
     {
@@ -67,6 +71,10 @@ function MyPlotMenu() {
     {
       text: "Box Plot",
       value: "boxplot",
+    },
+    {
+      text: "Histogram",
+      value: "histogram",
     },
     {
       text: "Scatter Plot",
