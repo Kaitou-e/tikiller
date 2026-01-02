@@ -1,9 +1,17 @@
 import CheckBox from "../../inputs/CheckBox.tsx";
 import NumberInput from "../../inputs/NumberInput.tsx";
+import TextInput from "../../inputs/TextInput.tsx";
+import DrawDownSelection from "../../inputs/DrawDown.tsx";
 import MyGuiVar from "../../myGuiVar.tsx";
 // import quantile from "@stdlib/stats-base-dists-normal-quantile";
 import Table from "../../tableGen2.tsx";
 import quantile from "@stdlib/stats-base-dists-t-quantile";
+import {
+  excelColumnToIndex,
+  getColNames,
+  getValueGrid,
+} from "../../utilities.tsx";
+import oneVarStats from "../oneVarStats.tsx";
 
 type TIntervalResult = {
   lower: number;
@@ -22,6 +30,7 @@ type TwoSampleTIntervalResult = {
 };
 
 export function handleTInt(
+  data: any[][],
   showDialog: (
     isResult: boolean,
     content: string | React.ReactNode,
@@ -31,9 +40,12 @@ export function handleTInt(
   ) => void
 ) {
   let cL = new MyGuiVar(0.95); // CL
-  let ssize = new MyGuiVar(1);
+  let ssize = new MyGuiVar(0);
   let stdd = new MyGuiVar(1);
   let m = new MyGuiVar(1);
+  let exclRow1 = new MyGuiVar(false);
+  let selectCol = new MyGuiVar("");
+  let freqSelectCol = new MyGuiVar("");
 
   /**
    * One-sample t confidence interval for a mean.
@@ -77,6 +89,15 @@ export function handleTInt(
   }
 
   function zzzTest() {
+    if (selectCol.value != "" && Number(ssize.value) === 0) {
+      const arr = getValueGrid(data);
+      const colSelect = excelColumnToIndex(selectCol.value as string);
+      const freqColSelect = excelColumnToIndex(freqSelectCol.value as string);
+      const dataStats = oneVarStats(arr, colSelect, freqColSelect);
+      m.setValue(dataStats.mean);
+      stdd.setValue(dataStats.sampleSD);
+      ssize.setValue(dataStats.ssize);
+    }
     const distres = oneSampleTInterval(
       Number(cL.value),
       Number(ssize.value),
@@ -89,7 +110,7 @@ export function handleTInt(
       ["x̄", distres.mean.toFixed(6)],
       ["ME", distres.marginOfError.toFixed(6)],
       ["df", distres.df],
-      ["sx = s_(n-1)x", stdd.value.toString()],
+      ["sx = s_(n-1)x", Number(stdd.value).toFixed(6)],
       ["n", ssize.value.toString()],
     ];
     const align: ("left" | "center" | "right")[] = ["left", "center"];
@@ -109,10 +130,26 @@ export function handleTInt(
     false,
     <div>
       <h2>t Interval</h2>
+      <NumberInput variable={cL} textLabel="Confidence level: " step="0.01" />
+      <h4>Enter using data:</h4>
+      <DrawDownSelection
+        variable={selectCol}
+        options={getColNames(data)}
+        textLabel="Data column: "
+        width={100}
+      />
+      <DrawDownSelection
+        variable={freqSelectCol}
+        options={getColNames(data)}
+        textLabel="Frequency column (optional): "
+        width={100}
+      />
+      <CheckBox variable={exclRow1} textLabel="Exclude the first Row" />
+
+      <h4>Enter using stats (override):</h4>
       <NumberInput variable={m} textLabel="x̄: " step="1" />
       <NumberInput variable={stdd} textLabel="Sx: " step="1" />
       <NumberInput variable={ssize} textLabel="n: " step="1" />
-      <NumberInput variable={cL} textLabel="Confidence level: " step="0.01" />
     </div>, // above is the dialog content
     "yesno", // the type of dialog yesno or ok
     () => {
@@ -122,6 +159,7 @@ export function handleTInt(
 }
 
 export function handle2SampleTInt(
+  data: any[][],
   showDialog: (
     isResult: boolean,
     content: string | React.ReactNode,
@@ -132,12 +170,18 @@ export function handle2SampleTInt(
 ) {
   let cL = new MyGuiVar(0.95); // CL
   let pool = new MyGuiVar(false);
-  let ssize1 = new MyGuiVar(1);
+  let ssize1 = new MyGuiVar(0);
   let stdd1 = new MyGuiVar(1);
   let m1 = new MyGuiVar(1);
-  let ssize2 = new MyGuiVar(1);
+  let ssize2 = new MyGuiVar(0);
   let stdd2 = new MyGuiVar(1);
   let m2 = new MyGuiVar(1);
+
+  let exclRow1 = new MyGuiVar(false);
+  let selectCol1 = new MyGuiVar("");
+  let freqSelectCol1 = new MyGuiVar("");
+  let selectCol2 = new MyGuiVar("");
+  let freqSelectCol2 = new MyGuiVar("");
 
   /**
    * Two-sample t confidence interval for μ1 - μ2.
@@ -207,6 +251,25 @@ export function handle2SampleTInt(
   }
 
   function zzzTest() {
+    if (selectCol1.value != "" && Number(ssize1.value) === 0) {
+      const arr = getValueGrid(data);
+      const colSelect1 = excelColumnToIndex(selectCol1.value as string);
+      const freqColSelect1 = excelColumnToIndex(freqSelectCol1.value as string);
+      const dataStats1 = oneVarStats(arr, colSelect1, freqColSelect1);
+      m1.setValue(dataStats1.mean);
+      stdd1.setValue(dataStats1.sampleSD);
+      ssize1.setValue(dataStats1.ssize);
+    }
+    if (selectCol2.value != "" && Number(ssize2.value) === 0) {
+      const arr = getValueGrid(data);
+      const colSelect = excelColumnToIndex(selectCol2.value as string);
+      const freqColSelect = excelColumnToIndex(freqSelectCol2.value as string);
+      const dataStats = oneVarStats(arr, colSelect, freqColSelect);
+      m2.setValue(dataStats.mean);
+      stdd2.setValue(dataStats.sampleSD);
+      ssize2.setValue(dataStats.ssize);
+    }
+
     let distres = twoSampleTInterval(
       Number(cL.value),
       Number(ssize1.value),
@@ -225,8 +288,8 @@ export function handle2SampleTInt(
       ["df", distres.df.toFixed(6)],
       ["x̄1", Number(m1.value).toFixed(6)],
       ["x̄2", Number(m2.value).toFixed(6)],
-      ["sx1", stdd1.value.toString()],
-      ["sx2", stdd2.value.toString()],
+      ["sx1", Number(stdd1.value).toFixed(6)],
+      ["sx2", Number(stdd2.value).toFixed(6)],
       ["n1", ssize1.value.toString()],
       ["n2", ssize2.value.toString()],
     ];
@@ -247,14 +310,43 @@ export function handle2SampleTInt(
     false,
     <div>
       <h2>2-Sample t Interval</h2>
+      <NumberInput variable={cL} textLabel="Confidence level: " step="0.01" />
+      <CheckBox variable={pool} textLabel="Pooled" />
+      <h4>Enter using data:</h4>
+      <DrawDownSelection
+        variable={selectCol1}
+        options={getColNames(data)}
+        textLabel="Data column 1: "
+        width={100}
+      />
+      <DrawDownSelection
+        variable={selectCol2}
+        options={getColNames(data)}
+        textLabel="Data column 2: "
+        width={100}
+      />
+
+      <DrawDownSelection
+        variable={freqSelectCol1}
+        options={getColNames(data)}
+        textLabel="Frequency column 1 (optional): "
+        width={100}
+      />
+      <DrawDownSelection
+        variable={freqSelectCol2}
+        options={getColNames(data)}
+        textLabel="Frequency column 2 (optional): "
+        width={100}
+      />
+      <CheckBox variable={exclRow1} textLabel="Exclude the first Row" />
+
+      <h4>Enter using stats (override):</h4>
       <NumberInput variable={m1} textLabel="x̄1: " step="1" />
       <NumberInput variable={stdd1} textLabel="Sx1: " step="1" />
       <NumberInput variable={ssize1} textLabel="n1: " step="1" />
       <NumberInput variable={m2} textLabel="x̄2: " step="1" />
       <NumberInput variable={stdd2} textLabel="Sx2: " step="1" />
       <NumberInput variable={ssize2} textLabel="n2: " step="1" />
-      <NumberInput variable={cL} textLabel="Confidence level: " step="0.01" />
-      <CheckBox variable={pool} textLabel="Pooled" />
     </div>, // above is the dialog content
     "yesno", // the type of dialog yesno or ok
     () => {

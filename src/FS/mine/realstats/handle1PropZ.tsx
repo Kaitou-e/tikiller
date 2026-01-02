@@ -29,16 +29,6 @@ function handleAdd(
   let pNull = new MyGuiVar(0.5);
   let altHyp = new MyGuiVar("prop != p0");
 
-  // function colSum(){
-  //     console.log("selected col",drawdown2.value)
-  //     const colSelect=excelColumnToIndex(drawdown2.value as string);
-  //     console.log("col index",colSelect);
-  //     if (colSelect===null || colSelect<0 ) return;
-  //     const arr=getMultiColNum(data,[colSelect] , exclRow1.value as boolean )
-  //     console.log(arr)
-  //     return arr[0].reduce((acc, curr) => acc + curr, 0);
-  // }
-
   function zzzTest() {
     let sampleProp = 0;
     if (Number(eventCNT.value) >= 0 && Number(sampleSize.value) >= 1) {

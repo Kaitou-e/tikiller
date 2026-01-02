@@ -58,9 +58,9 @@ const SubMenuSan: React.FC<{
     } else if (value === "2pz") {
       handle2PropZInt(showDialogWithHistory);
     } else if (value === "tci") {
-      handleTInt(showDialogWithHistory);
+      handleTInt(data, showDialogWithHistory);
     } else if (value === "2st") {
-      handle2SampleTInt(showDialogWithHistory);
+      handle2SampleTInt(data, showDialogWithHistory);
     }
   };
 

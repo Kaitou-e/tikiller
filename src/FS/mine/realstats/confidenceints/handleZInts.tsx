@@ -3,6 +3,7 @@ import NumberInput from "../../inputs/NumberInput.tsx";
 import MyGuiVar from "../../myGuiVar.tsx";
 import quantile from "@stdlib/stats-base-dists-normal-quantile";
 import Table from "../../tableGen2.tsx";
+import { getColNames } from "../../utilities.tsx";
 
 export function handle1PropZInt(
   showDialog: (

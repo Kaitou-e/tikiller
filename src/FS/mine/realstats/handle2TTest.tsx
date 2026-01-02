@@ -131,25 +131,26 @@ function handle2TTest(
       <DrawDownSelection
         variable={selectCol1}
         options={getColNames(data)}
-        textLabel="Select data column: "
-        width={100}
-      />
-      <DrawDownSelection
-        variable={freqSelectCol1}
-        options={getColNames(data)}
-        textLabel="Select frequency column: "
+        textLabel="Data column 1: "
         width={100}
       />
       <DrawDownSelection
         variable={selectCol2}
         options={getColNames(data)}
-        textLabel="Select data column: "
+        textLabel="Data column 2: "
+        width={100}
+      />
+
+      <DrawDownSelection
+        variable={freqSelectCol1}
+        options={getColNames(data)}
+        textLabel="Frequency column 1 (optional): "
         width={100}
       />
       <DrawDownSelection
         variable={freqSelectCol2}
         options={getColNames(data)}
-        textLabel="Select frequency column: "
+        textLabel="Frequency column 2 (optional): "
         width={100}
       />
       <CheckBox variable={exclRow1} textLabel="Exclude the first Row" />

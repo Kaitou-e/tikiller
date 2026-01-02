@@ -66,13 +66,13 @@ function handleOneVarStats(
       <DrawDownSelection
         variable={selectCol}
         options={getColNames(data)}
-        textLabel="Select data column: "
+        textLabel="Data column: "
         width={100}
       />
       <DrawDownSelection
         variable={freqSelectCol}
         options={getColNames(data)}
-        textLabel="Select frequency column: "
+        textLabel="Frequency column (optional): "
         width={100}
       />
       <CheckBox variable={exclRow1} textLabel="Exclude the first Row" />
