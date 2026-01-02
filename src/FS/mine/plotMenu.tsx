@@ -9,6 +9,9 @@ import handleGenshin from "./example_handles/handleGenshin.tsx";
 import { getFlowdata } from "../core";
 import handleBoxPlot from "./realstats/plot/handleBoxPlot.tsx";
 import handleDotPlot from "./realstats/plot/handleDotPlot.tsx";
+import handleScatterPlot from "./realstats/plot/handleScatterPlot.tsx";
+import handleLinReg from "./realstats/plot/handleLinReg.tsx";
+import handleResidual from "./realstats/plot/handleResidual.tsx";
 
 function MyPlotMenu() {
   const { context, setContext } = useContext(WorkbookContext);
@@ -46,15 +49,36 @@ function MyPlotMenu() {
     if (value === "dotplot") {
       handleDotPlot(data, showDialogWithHistory);
     }
+    if (value === "scatterplot") {
+      handleScatterPlot(data, showDialogWithHistory);
+    }
+    if (value === "linreg") {
+      handleLinReg(data, showDialogWithHistory);
+    }
+    if (value === "resid") {
+      handleResidual(data, showDialogWithHistory);
+    }
   }
   const items = [
-        {
+    {
       text: "Dot Plot",
       value: "dotplot",
     },
     {
       text: "Box Plot",
       value: "boxplot",
+    },
+    {
+      text: "Scatter Plot",
+      value: "scatterplot",
+    },
+    {
+      text: "Linear Regression",
+      value: "linreg",
+    },
+    {
+      text: "Residuals Plot",
+      value: "resid",
     },
   ];
   return (

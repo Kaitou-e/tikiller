@@ -20,10 +20,7 @@ function handleChi2Way(
     onCancel?: () => void
   ) => void
 ) {
-  let selectCol1 = new MyGuiVar("");
-  let selectCol2 = new MyGuiVar("");
   let selectCol = new MyGuiVar([" "]);
-  let df = new MyGuiVar(1);
 
   function isMissing(val: any): boolean {
     return (
@@ -34,8 +31,10 @@ function handleChi2Way(
   }
 
   function zzzTest() {
-    let colIn = excelColumnToIndex(selectCol.value as string);
+    //let colIn = excelColumnToIndex(selectCol.value as string);
     const rrr = selectCol.value as string[];
+    console.log(rrr);
+
     const colSelect = rrr
       .map((i) => excelColumnToIndex(i))
       .filter((value) => value !== null);
@@ -43,26 +42,30 @@ function handleChi2Way(
     const obv = getMultiColNum(data, colSelect, false, true);
 
     const testres = chiSquareTwoWay(obv);
+    console.log(testres);
 
     const tableRes = [
       ["χ2", testres.chi2.toFixed(6)],
       ["PVal", testres.pValue.toFixed(6)],
-      ["df", df.value.toString()],
+      ["df", testres.df],
     ];
     const align: ("left" | "center" | "right")[] = ["left", "center"];
-    // let listres = "{";
-    // // for (let i = 0; i < testres.compList.length - 1; i++) {
-    // //   listres += testres.compList[i].toFixed(5) + ", ";
-    // // }
-    // // listres += testres.compList[testres.compList.length - 1].toFixed(5) + "}";
+
+    const transpose = (arr) =>
+      arr[0].map((_, col) => arr.map((row) => row[col].toFixed(4)));
+
+    const align2: ("left" | "center" | "right")[] = new Array(
+      testres.expected.length
+    ).fill("center");
+
     return (
       <div>
         <h2>χ2 2-way Test</h2>
         <Table data={tableRes} align={align} />
         <h3>ExpMatrix</h3>
-        <Table data={testres.expected} />
+        <Table data={transpose(testres.expected)} align={align2} />
         <h3>CompMatrix</h3>
-        <Table data={testres.comp} />
+        <Table data={transpose(testres.comp)} align={align2} />
       </div>
     );
   }
