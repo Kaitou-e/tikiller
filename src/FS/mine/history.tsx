@@ -1,7 +1,8 @@
 // import React from "react";
+import { useRef, useEffect, useContext } from "react";
 import WorkbookContext from "../react/src/context";
 // import {  getFlowdata } from "../core";
-import { useContext } from "react";
+// import { useContext } from "react";
 import CustomButton from "../react/src/components/Toolbar/CustomButton.tsx";
 import { useDialog } from "../react/src/hooks/useDialog.tsx";
 
@@ -56,6 +57,9 @@ function History() {
   const key = "Show-History";
   const { context, setContext, settings, refs } = useContext(WorkbookContext);
   const { showDialog, hideDialog } = useDialog();
+  // Create ref for the dialog div
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   return (
     <CustomButton
       key={key}
@@ -71,7 +75,27 @@ function History() {
           }
           // draftCtx.resHistory.push("sdf");
         });
-        showDialog(jointHistory(context.resHistory), "ok");
+        showDialog(
+          <div
+            ref={scrollRef}
+            style={{
+              maxHeight: "500px",
+              overflowY: "auto",
+              padding: "8px",
+            }}
+          >
+            {/* {context.resHistory} */}
+            <ListWithDivs elements={context.resHistory} />
+          </div>,
+          "ok"
+        );
+
+        // Scroll to bottom after a short delay for dialog to render
+        setTimeout(() => {
+          if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+          }
+        }, 100);
       }}
     />
   );
