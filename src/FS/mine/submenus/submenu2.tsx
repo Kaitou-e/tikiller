@@ -9,6 +9,7 @@ import handle2TTest from "../realstats/handle2TTest.tsx";
 import handleOneVarStats from "../realstats/handleOneVarStats.tsx";
 import handleTTest from "../realstats/handleTTest.tsx";
 import handleChiGOF from "../realstats/handleChiGOF.tsx";
+import handleChi2Way from "../realstats/handleChi2Way.tsx";
 
 const SubMenuSan: React.FC<{
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -72,6 +73,7 @@ const SubMenuSan: React.FC<{
     } else if (value === "chigof") {
       handleChiGOF(data, showDialogWithHistory);
     } else if (value === "chi2way") {
+      handleChi2Way(data, showDialogWithHistory);
     }
   };
 
