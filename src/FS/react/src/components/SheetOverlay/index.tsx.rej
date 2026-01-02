@@ -1,0 +1,12 @@
+@@ -879,7 +879,10 @@
+                   <input
+                     ref={bottomAddRowInputRef}
+                     type="text"
+-                    style={{ width: 50 }}
++                    style={{ width: 50,
++                            color: "black",          // text color
++                            backgroundColor: "white" // background color
++                     }}
+                     placeholder={context.addDefaultRows.toString()}
+                   />{" "}
+                   <span style={{ fontSize: 14 }}>{info.row}</span>{" "}

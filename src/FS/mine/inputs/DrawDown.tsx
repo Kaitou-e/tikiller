@@ -46,7 +46,8 @@ const DropdownSelection = ({
         onChange={handleChange}
         style={{
           width: `${width}px`,
-          color: "black",
+                 color: "black",          // text color
+        backgroundColor: "white" // background color
         }}
       >
         {options.map((option, index) => (

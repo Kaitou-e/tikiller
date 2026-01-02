@@ -879,10 +879,7 @@ const SheetOverlay: React.FC = () => {
                   <input
                     ref={bottomAddRowInputRef}
                     type="text"
-                    style={{ width: 50,
-                            color: "black",          // text color
-                            backgroundColor: "white" // background color
-                     }}
+                    style={{ width: 50 }}
                     placeholder={context.addDefaultRows.toString()}
                   />{" "}
                   <span style={{ fontSize: 14 }}>{info.row}</span>{" "}

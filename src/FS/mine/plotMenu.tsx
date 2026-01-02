@@ -8,6 +8,7 @@ import { useDialog } from "../react/src/hooks/useDialog.tsx";
 import handleGenshin from "./example_handles/handleGenshin.tsx";
 import { getFlowdata } from "../core";
 import handleBoxPlot from "./realstats/plot/handleBoxPlot.tsx";
+import handleDotPlot from "./realstats/plot/handleDotPlot.tsx";
 
 function MyPlotMenu() {
   const { context, setContext } = useContext(WorkbookContext);
@@ -42,8 +43,15 @@ function MyPlotMenu() {
     if (value === "boxplot") {
       handleBoxPlot(data, showDialogWithHistory);
     }
+    if (value === "dotplot") {
+      handleDotPlot(data, showDialogWithHistory);
+    }
   }
   const items = [
+        {
+      text: "Dot Plot",
+      value: "dotplot",
+    },
     {
       text: "Box Plot",
       value: "boxplot",
