@@ -44,7 +44,7 @@ const NumberInput = ({
     <div className="textboxs">
       {textLabel}
       <input
-        style={{ backgroundColor: "white", color: "black" }}
+        style={{ backgroundColor: "white", color: "black", border: "1px solid black" }}
         type="number"
         step={step.toString()}
         value={value}

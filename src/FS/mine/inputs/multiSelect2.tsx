@@ -87,12 +87,12 @@ const MultiSelectBox: React.FC<MultiSelectBoxProps> = ({
             padding: "0px",
             cursor: "pointer",
             backgroundColor: selectedItems.includes(item)
-              ? "#007BFF"
-              : "#242424",
-            color: "#ffffff",
+              ? "#84befc"
+              : "#ececec",
+            color: "#000000",
             // selectedItems.includes(item) ? '#fff' : '#000',
-            borderBottom: "1px solid #eee",
-            borderColor: "#777777",
+            borderBottom: "1px solid black",
+            borderColor: "#fffefeff",
           }}
         >
           {item}

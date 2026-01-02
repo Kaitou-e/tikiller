@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
 import MyGuiVar from "../myGuiVar.tsx";
+import styles from './CheckBox.module.css';
 
 interface CheckTextInputProps {
   // onCheckChange: (checked: boolean) => void;
@@ -29,13 +30,25 @@ const CheckBox = ({
   };
 
   return (
-    <div className="textboxs">
+    <div className="textboxs" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
       <input
         type="checkbox"
         checked={checked}
         onChange={handleCheckboxChange}
+        className={`${styles.customCheckbox} ${checked ? styles.customCheckboxChecked : ''}`}
+        style={{
+          appearance: "none",
+          width: "18px",
+          height: "18px",
+          backgroundColor: "white",
+          border: "1px solid black",
+          borderRadius: "3px",
+          cursor: "pointer",
+          position: "relative",
+          // marginRight: "3px"
+        }}
       />
-      {textLabel}
+      <span>{textLabel}</span>
     </div>
   );
 };

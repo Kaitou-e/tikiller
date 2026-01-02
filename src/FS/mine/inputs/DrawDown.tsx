@@ -47,6 +47,7 @@ const DropdownSelection = ({
         style={{
           width: `${width}px`,
                  color: "black",          // text color
+                 border: "1px solid black",
         backgroundColor: "white" // background color
         }}
       >

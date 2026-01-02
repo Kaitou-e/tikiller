@@ -6,6 +6,7 @@ import {
   getColNames,
   excelColumnToIndex,
   getValueGrid,
+  getFromDataFreq,
 } from "../utilities.tsx";
 import MyGuiVar from "../myGuiVar.tsx";
 import onePropZTest from "./onePropZ.tsx";
@@ -43,19 +44,29 @@ function handle2TTest(
 
   function zzzTest() {
     if (selectCol1.value != "" && Number(sampleSize1.value) === 0) {
-      const arr = getValueGrid(data);
       const colSelect = excelColumnToIndex(selectCol1.value as string);
       const freqColSelect = excelColumnToIndex(freqSelectCol1.value as string);
-      const dataStats = oneVarStats(arr, colSelect, freqColSelect);
+      const flat = getFromDataFreq(
+        data,
+        colSelect,
+        freqColSelect,
+        exclRow1.value as boolean
+      );
+      const dataStats = oneVarStats(flat);
       mSample1.setValue(dataStats.mean);
       sampleSD1.setValue(dataStats.sampleSD);
       sampleSize1.setValue(dataStats.ssize);
     }
     if (selectCol2.value != "" && Number(sampleSize2.value) === 0) {
-      const arr = getValueGrid(data);
       const colSelect = excelColumnToIndex(selectCol2.value as string);
       const freqColSelect = excelColumnToIndex(freqSelectCol2.value as string);
-      const dataStats = oneVarStats(arr, colSelect, freqColSelect);
+      const flat = getFromDataFreq(
+        data,
+        colSelect,
+        freqColSelect,
+        exclRow1.value as boolean
+      );
+      const dataStats = oneVarStats(flat);
       mSample2.setValue(dataStats.mean);
       sampleSD2.setValue(dataStats.sampleSD);
       sampleSize2.setValue(dataStats.ssize);

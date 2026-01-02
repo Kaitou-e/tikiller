@@ -9,6 +9,7 @@ import quantile from "@stdlib/stats-base-dists-t-quantile";
 import {
   excelColumnToIndex,
   getColNames,
+  getFromDataFreq,
   getValueGrid,
 } from "../../utilities.tsx";
 import oneVarStats from "../oneVarStats.tsx";
@@ -90,10 +91,15 @@ export function handleTInt(
 
   function zzzTest() {
     if (selectCol.value != "" && Number(ssize.value) === 0) {
-      const arr = getValueGrid(data);
       const colSelect = excelColumnToIndex(selectCol.value as string);
       const freqColSelect = excelColumnToIndex(freqSelectCol.value as string);
-      const dataStats = oneVarStats(arr, colSelect, freqColSelect);
+      const flat = getFromDataFreq(
+        data,
+        colSelect,
+        freqColSelect,
+        exclRow1.value as boolean
+      );
+      const dataStats = oneVarStats(flat);
       m.setValue(dataStats.mean);
       stdd.setValue(dataStats.sampleSD);
       ssize.setValue(dataStats.ssize);
@@ -252,19 +258,29 @@ export function handle2SampleTInt(
 
   function zzzTest() {
     if (selectCol1.value != "" && Number(ssize1.value) === 0) {
-      const arr = getValueGrid(data);
-      const colSelect1 = excelColumnToIndex(selectCol1.value as string);
-      const freqColSelect1 = excelColumnToIndex(freqSelectCol1.value as string);
-      const dataStats1 = oneVarStats(arr, colSelect1, freqColSelect1);
+      const colSelect = excelColumnToIndex(selectCol1.value as string);
+      const freqColSelect = excelColumnToIndex(freqSelectCol1.value as string);
+      const flat = getFromDataFreq(
+        data,
+        colSelect,
+        freqColSelect,
+        exclRow1.value as boolean
+      );
+      const dataStats1 = oneVarStats(flat);
       m1.setValue(dataStats1.mean);
       stdd1.setValue(dataStats1.sampleSD);
       ssize1.setValue(dataStats1.ssize);
     }
     if (selectCol2.value != "" && Number(ssize2.value) === 0) {
-      const arr = getValueGrid(data);
       const colSelect = excelColumnToIndex(selectCol2.value as string);
       const freqColSelect = excelColumnToIndex(freqSelectCol2.value as string);
-      const dataStats = oneVarStats(arr, colSelect, freqColSelect);
+      const flat = getFromDataFreq(
+        data,
+        colSelect,
+        freqColSelect,
+        exclRow1.value as boolean
+      );
+      const dataStats = oneVarStats(flat);
       m2.setValue(dataStats.mean);
       stdd2.setValue(dataStats.sampleSD);
       ssize2.setValue(dataStats.ssize);

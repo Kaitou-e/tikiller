@@ -1,3 +1,5 @@
+import MyGuiVar from "./myGuiVar";
+
 export function downloadFile(content: string, defaultFilename: string): void {
   // Determine file type from default filename extension
   const isCSV = defaultFilename.toLowerCase().endsWith(".csv");
@@ -178,4 +180,40 @@ export function getMultiColNum(
     }
   }
   return res as number[][];
+}
+
+export function getFromDataFreq(
+  data: any[][],
+  colSelect: number,
+  freqcol: number,
+  exclRow1: boolean
+): number[] {
+  const x = [];
+  let maxFreq = 0;
+
+  // const colSelect = excelColumnToIndex(selectCol.value as string);
+  if (colSelect === null || colSelect < 0) return;
+
+  if (freqcol === -1) {
+    const arr = getMultiColNum(data, [colSelect], exclRow1);
+    // group occurrences by value
+    console.log(arr);
+    arr[0].forEach((value, idx) => {
+      x.push(value);
+    });
+  } else {
+    // const freqcol = excelColumnToIndex(freqSelectCol.value as string);
+    // console.log(freqcol, colSelect);
+    const arr = getMultiColNum(data, [colSelect, freqcol], exclRow1, true);
+    // console.log(arr);
+    arr[1].forEach((f, i) => {
+      maxFreq = Math.max(f, maxFreq);
+      for (let k = 0; k < f; k++) {
+        x.push(arr[0][i]); // same x for this value
+        // y.push(k + 1); // stacked vertically
+      }
+    });
+  }
+
+  return x as number[];
 }

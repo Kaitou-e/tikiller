@@ -14,38 +14,9 @@ type StatsResult = {
   ssize: number;
 };
 
-function oneVarStats(
-  data: any[][],
-  colSelect: number,
-  freqColSelect: number = -1
-): StatsResult {
-  function isMissing(val: any): boolean {
-    return (
-      val === null ||
-      val === undefined ||
-      (typeof val === "string" && val.trim() === "")
-    );
-  }
-
-  // Extract and filter
-  const colData: number[] = [];
-  const frequencies: number[] = [];
-  for (let i = 0; i < data.length; i++) {
-    const value = data[i][colSelect];
-    const freq = freqColSelect >= 0 ? data[i][freqColSelect] : 1;
-
-    if (
-      isMissing(value) ||
-      isNaN(Number(value)) ||
-      isMissing(freq) ||
-      isNaN(Number(freq)) ||
-      Number(freq) <= 0
-    ) {
-      continue;
-    }
-    colData.push(Number(value));
-    frequencies.push(Number(freq));
-  }
+function oneVarStats(values: number[]): StatsResult {
+  // Filter out non-finite numbers, if you want to be defensive
+  const colData = values.filter((v) => Number.isFinite(v));
 
   if (colData.length === 0) {
     return {
@@ -63,16 +34,10 @@ function oneVarStats(
     };
   }
 
-  // Expand data for quartile calculation
-  const expanded: number[] = [];
-  colData.forEach((val, i) => {
-    for (let j = 0; j < frequencies[i]; j++) {
-      expanded.push(val);
-    }
-  });
-  expanded.sort((a, b) => a - b);
+  // Sort a copy for quartiles
+  const sorted = [...colData].sort((a, b) => a - b);
 
-  // Minitab percentile method
+  // Minitab percentile method (same as before, now on plain array)
   function minitabPercentile(arr: number[], p: number): number {
     const N = arr.length;
     if (N === 0) return NaN;
@@ -87,20 +52,18 @@ function oneVarStats(
     return lowerVal + frac * (upperVal - lowerVal);
   }
 
-  const totalFreq = frequencies.reduce((a, b) => a + b, 0);
-  const sum = colData.reduce((acc, val, i) => acc + val * frequencies[i], 0);
-  const sumFreq = colData.reduce((acc, val, i) => acc + frequencies[i], 0);
-  const sumSquares = colData.reduce(
-    (acc, val, i) => acc + val * val * frequencies[i],
-    0
-  );
-  const mean = sum / totalFreq;
-  const variance = colData.reduce(
-    (acc, val, i) => acc + frequencies[i] * Math.pow(val - mean, 2),
-    0
-  );
-  const sampleSD = totalFreq > 1 ? Math.sqrt(variance / (totalFreq - 1)) : 0;
-  const populationSD = totalFreq > 0 ? Math.sqrt(variance / totalFreq) : 0;
+  const ssize = colData.length;
+  const sum = colData.reduce((acc, v) => acc + v, 0);
+  const sumSquares = colData.reduce((acc, v) => acc + v * v, 0);
+  const mean = sum / ssize;
+
+  const variance = colData.reduce((acc, v) => {
+    const diff = v - mean;
+    return acc + diff * diff;
+  }, 0);
+
+  const sampleSD = ssize > 1 ? Math.sqrt(variance / (ssize - 1)) : 0;
+  const populationSD = ssize > 0 ? Math.sqrt(variance / ssize) : 0;
 
   return {
     mean,
@@ -108,12 +71,13 @@ function oneVarStats(
     sumSquares,
     sampleSD,
     populationSD,
-    min: expanded[0],
-    q1: minitabPercentile(expanded, 25),
-    median: minitabPercentile(expanded, 50),
-    q3: minitabPercentile(expanded, 75),
-    max: expanded[expanded.length - 1],
-    ssize: colData.length < sumFreq ? sumFreq : colData.length,
+    min: sorted[0],
+    q1: minitabPercentile(sorted, 25),
+    median: minitabPercentile(sorted, 50),
+    q3: minitabPercentile(sorted, 75),
+    max: sorted[sorted.length - 1],
+    ssize,
   };
 }
+
 export default oneVarStats;

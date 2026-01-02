@@ -6,6 +6,7 @@ import {
   getColNames,
   excelColumnToIndex,
   getValueGrid,
+  getFromDataFreq,
 } from "../utilities.tsx";
 import MyGuiVar from "../myGuiVar.tsx";
 import onePropZTest from "./onePropZ.tsx";
@@ -36,10 +37,15 @@ function handleTTest(
 
   function zzzTest() {
     if (selectCol.value != "" && Number(sampleSize.value) === 0) {
-      const arr = getValueGrid(data);
       const colSelect = excelColumnToIndex(selectCol.value as string);
       const freqColSelect = excelColumnToIndex(freqSelectCol.value as string);
-      const dataStats = oneVarStats(arr, colSelect, freqColSelect);
+      const flat = getFromDataFreq(
+        data,
+        colSelect,
+        freqColSelect,
+        exclRow1.value as boolean
+      );
+      const dataStats = oneVarStats(flat);
       mSample.setValue(dataStats.mean);
       sampleSD.setValue(dataStats.sampleSD);
       sampleSize.setValue(dataStats.ssize);
