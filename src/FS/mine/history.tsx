@@ -84,6 +84,7 @@ function History() {
               padding: "8px",
             }}
           >
+            <h3>Result History</h3>
             {/* {context.resHistory} */}
             <ListWithDivs elements={context.resHistory} />
           </div>,

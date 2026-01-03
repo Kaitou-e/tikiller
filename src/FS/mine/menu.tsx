@@ -5,20 +5,20 @@ import Combo from "../react/src/components/Toolbar/Combo.tsx";
 import { MenuDivider } from "../react/src/components/Toolbar/Divider.tsx";
 import Select, { Option } from "../react/src/components/Toolbar/Select.tsx";
 import WorkbookContext from "../react/src/context";
-// import { Context } from '../core/src/context.ts'
 import { useDialog } from "../react/src/hooks/useDialog.tsx";
 import handleGenshin from "./example_handles/handleGenshin.tsx";
 import { getFlowdata } from "../core";
-import handleZZZ from "./example_handles/handleZZZ.tsx";
-import handleMoon from "./example_handles/handleMoon.tsx";
-import handleNeg from "./example_handles/handleNeg.tsx";
-import handleYeti from "./example_handles/handleYeti.tsx";
+
 import SubMenuCI from "./submenus/submenuCI.tsx";
-// import {showDialogWithHistory} from "./history.tsx";
-// import SubMenuOne from "./submenu1.tsx";
 import SubMenuSan from "./submenus/submenu3.tsx";
 import SubMenuTwo from "./submenus/submenu2.tsx";
 import SubMenuDist from "./submenus/submenuDist.tsx";
+
+import nonTInotice, { TInotice } from "./menuNotices.tsx"
+import handleOneVarStatsNormal from "./realstats/handleOneVarStatsNormal.tsx";
+import SubMenuDistNormal from "./submenus/submenuDistNormal.tsx";
+import SubMenuCINormal from "./submenus/submenuCINormal.tsx";
+import SubMenuTwoNormal from "./submenus/submenu2Normal.tsx";
 
 function MyMenu() {
   const { context, setContext, refs } = useContext(WorkbookContext);
@@ -50,64 +50,45 @@ function MyMenu() {
     const data = getFlowdata(context) as any[][];
 
     if (!value) return;
-    // if (value === "|" ){
-    //     return <MenuDivider />
-    // }
-    // if (value === "highlight") {
-    //    }
-    else if (value === "mona") {
-      showDialog("Mona no Lisa", "ok");
-    } else if (value === "lisa") {
-      showDialog("Lisa no Mona", "yesno", () => {
-        // the onClick callback function.
-        showDialog("dafenqi", "ok");
-      });
-    } else if (value === "genshin") {
-      handleGenshin(data, showDialogWithHistory);
-    } else if (value === "zzz") {
-      handleZZZ(data, showDialog);
-    } else if (value === "moon") {
-      handleMoon(data, showDialogWithHistory);
-    } else if (value === "neg") {
-      handleNeg(data, showDialog);
-    } else if (value === "yeti") {
-      handleYeti(data, showDialog);
+    else if (value === "TI calc") {
+      TInotice(showDialogWithHistory);
+    }    else if (value === "nonTI") {
+      nonTInotice(showDialogWithHistory);
+    } else if (value === "describe") {
+      handleOneVarStatsNormal(data, showDialogWithHistory);
     }
   }
+
   const items = [
     {
-      text: "M..o...na",
-      value: "mona",
+      text: "== Conventional Stats ==",
+      value: "nonTI",
     },
     {
-      text: "L....is...a",
-      value: "lisa",
+      text: "Data Describe",
+      value: "describe",
+    },
+        {
+      text: "Distributions",
+      value: "subdistNormal",
+    },
+        {
+      text: "subci",
+      value: "subci2",
     },
     {
-      text: "Traveller.PAIMON",
-      value: "genshin",
-    },
-    {
-      text: "ZZZZZ  ZZZZ",
-      value: "zzz",
-    },
-    {
-      text: "Moooon 3",
-      value: "moon",
-    },
-    {
-      text: "Can I use negotiation?",
-      value: "neg",
-    },
-    {
-      text: "water bootle",
-      value: "yeti",
+      text: "sub mennneu",
+      value: "highlight2",
     },
     {
       text: "sdf",
       value: "|",
     },
     /////////////////////////
+    {
+      text: "== TI Calculator Dupe ==",
+      value: "TI calc",
+    },
     {
       text: "whatever",
       value: "sub3",
@@ -127,7 +108,7 @@ function MyMenu() {
   ];
 
   return (
-    <Combo text="Menuuuu" key="MyMenu" tooltip="Ehhhhh....">
+    <Combo text="Menu" key="MyMenu" tooltip="Stat Tools">
       {(setOpen) => (
         <Select style={{ overflow: "visible" }}>
           {items.map(({ text, value }) => {
@@ -141,7 +122,13 @@ function MyMenu() {
               return <SubMenuCI setOpen={setOpen} />;
             } else if (value == "subdist") {
               return <SubMenuDist setOpen={setOpen} />;
-            } else {
+            } else if (value == "subdistNormal") {
+              return <SubMenuDistNormal setOpen={setOpen} />;
+            } else if (value == "subci2") {
+              return <SubMenuCINormal setOpen={setOpen} />;
+            } else if (value == "highlight2") {
+              return <SubMenuTwoNormal setOpen={setOpen} />;
+            }else {
               return (
                 <Option
                   key={value}
