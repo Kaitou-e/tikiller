@@ -14,7 +14,7 @@ import SubMenuSan from "./submenus/submenu3.tsx";
 import SubMenuTwo from "./submenus/submenu2.tsx";
 import SubMenuDist from "./submenus/submenuDist.tsx";
 
-import nonTInotice, { TInotice } from "./menuNotices.tsx"
+import nonTInotice, { TInotice } from "./menuNotices.tsx";
 import handleOneVarStatsNormal from "./realstats/handleOneVarStatsNormal.tsx";
 import SubMenuDistNormal from "./submenus/submenuDistNormal.tsx";
 import SubMenuCINormal from "./submenus/submenuCINormal.tsx";
@@ -52,7 +52,7 @@ function MyMenu() {
     if (!value) return;
     else if (value === "TI calc") {
       TInotice(showDialogWithHistory);
-    }    else if (value === "nonTI") {
+    } else if (value === "nonTI") {
       nonTInotice(showDialogWithHistory);
     } else if (value === "describe") {
       handleOneVarStatsNormal(data, showDialogWithHistory);
@@ -68,11 +68,11 @@ function MyMenu() {
       text: "Data Describe",
       value: "describe",
     },
-        {
+    {
       text: "Distributions",
       value: "subdistNormal",
     },
-        {
+    {
       text: "subci",
       value: "subci2",
     },
@@ -86,7 +86,7 @@ function MyMenu() {
     },
     /////////////////////////
     {
-      text: "== TI Calculator Dupe ==",
+      text: "== TI Calculator ==",
       value: "TI calc",
     },
     {
@@ -128,7 +128,7 @@ function MyMenu() {
               return <SubMenuCINormal setOpen={setOpen} />;
             } else if (value == "highlight2") {
               return <SubMenuTwoNormal setOpen={setOpen} />;
-            }else {
+            } else {
               return (
                 <Option
                   key={value}
