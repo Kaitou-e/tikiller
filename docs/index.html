@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A simple online statistics calculator." />
+    <title>DesmoStats — Online Statistics Calculator</title>
+
+    <style>
+      /* Simple, functional styling (no fancy effects) */
+      :root {
+        --bg: #ffffff;
+        --text: #111;
+        --muted: #444;
+        --border: #d0d0d0;
+        --panel: #f7f7f7;
+        --link: #0645ad;
+        --max: 960px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+          Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+      }
+
+      a {
+        color: var(--link);
+      }
+      a:hover {
+        text-decoration: none;
+      }
+
+      .container {
+        width: min(var(--max), calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      header {
+        border-bottom: 1px solid var(--border);
+        background: #fff;
+      }
+
+      .header-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      nav {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: var(--link);
+        padding: 6px 8px;
+        border: 1px solid transparent;
+      }
+
+      nav a:focus,
+      nav a:hover {
+        border-color: var(--border);
+        background: var(--panel);
+        outline: none;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        background: var(--panel);
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .btn:hover {
+        background: #eee;
+      }
+
+      .btn.primary {
+        background: #fff;
+        border-color: #888;
+      }
+
+      .menu-btn {
+        display: none;
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        background: var(--panel);
+        cursor: pointer;
+        font: inherit;
+      }
+
+      .mobile-panel {
+        display: none;
+        padding: 10px 0 14px;
+        border-top: 1px solid var(--border);
+      }
+
+      .mobile-panel.open {
+        display: block;
+      }
+
+      .mobile-panel a {
+        display: block;
+        padding: 10px 8px;
+        text-decoration: none;
+        border: 1px solid transparent;
+        color: var(--link);
+        margin-top: 6px;
+      }
+
+      .mobile-panel a:hover,
+      .mobile-panel a:focus {
+        border-color: var(--border);
+        background: var(--panel);
+        outline: none;
+      }
+
+      main {
+        padding: 18px 0 26px;
+      }
+
+      .hero {
+        border: 1px solid var(--border);
+        background: var(--panel);
+        padding: 16px;
+        margin-top: 14px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 14px;
+        align-items: start;
+      }
+
+      h1 {
+        font-size: 28px;
+        margin: 0 0 8px;
+      }
+
+      p {
+        margin: 0 0 10px;
+        color: var(--muted);
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+
+      .placeholder {
+        border: 1px dashed #aaa;
+        background: #fff;
+        padding: 10px;
+        min-height: 160px;
+        color: #666;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      section {
+        padding: 18px 0;
+        border-top: 1px solid var(--border);
+      }
+
+      h2 {
+        font-size: 20px;
+        margin: 0 0 8px;
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        align-items: start;
+      }
+
+      .box {
+        border: 1px solid var(--border);
+        background: #fff;
+        padding: 14px;
+      }
+
+      ul {
+        margin: 8px 0 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
+
+      label {
+        display: block;
+        font-size: 14px;
+        margin: 10px 0 4px;
+        color: var(--muted);
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid var(--border);
+        font: inherit;
+      }
+
+      textarea {
+        min-height: 100px;
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 14px 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* Responsive */
+      @media (max-width: 820px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+        nav {
+          display: none;
+        }
+        .menu-btn {
+          display: inline-block;
+        }
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .about-image {
+        margin: 12px 0;
+      }
+
+      .image-placeholder {
+        border: 1px dashed #aaa;
+        background: #fff;
+        padding: 10px;
+        min-height: 140px;
+        color: #666;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-row">
+          <a class="brand" href="#top">DesmoStats</a>
+
+          <nav aria-label="Primary navigation">
+            <a href="#about">About</a>
+            <a href="#contact">Contact / Contribute</a>
+            <a class="btn primary" href="/dist/index.html">Open Calculator</a>
+          </nav>
+
+          <div>
+            <a class="btn primary" href="/dist/index.html">Open Calculator</a>
+            <button
+              class="menu-btn"
+              id="menuBtn"
+              aria-label="Open menu"
+              aria-expanded="false"
+            >
+              Menu
+            </button>
+          </div>
+        </div>
+
+        <div class="mobile-panel" id="mobilePanel">
+          <a href="#about" data-close-menu>About</a>
+          <a href="#contact" data-close-menu>Contact / Contribute</a>
+          <a class="btn primary" href="/dist/index.html">Open Calculator</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <div class="container">
+        <div class="hero">
+          <div class="hero-grid">
+            <div>
+              <h1>Online Statistics Calculator</h1>
+              <p>
+                Quick tools for common statistics tasks. Enter inputs, get
+                results. Keep it simple, readable, and correct.
+              </p>
+
+              <div class="actions">
+                <a class="btn primary" href="/dist/index.html"
+                  >Open Calculator</a
+                >
+                <a class="btn" href="#about">What it does</a>
+              </div>
+
+              <p style="margin-top: 10px; font-size: 13px">
+                Note: replace the image placeholder with a screenshot or diagram
+                later.
+              </p>
+            </div>
+
+            <div class="placeholder" aria-label="Image placeholder">
+              Image placeholder (optional)
+            </div>
+          </div>
+        </div>
+
+        <section id="about">
+          <h2>About</h2>
+          <div class="box">
+            <p>
+              <b>DesmoStats</b> is a free, login-less online statistics
+              calculator built around a fully functional spreadsheet. Data is
+              entered in a familiar table format, while statistical tools are
+              accessed through structured menus, similar to desktop software
+              like JMP.
+            </p>
+
+            <!-- Example image: spreadsheet view -->
+            <div class="about-image">
+              <div class="image-placeholder">
+                Example: Spreadsheet data entry and formulas
+              </div>
+            </div>
+
+            <p>
+              The spreadsheet supports formulas, drag-and-fill, and
+              importing/exporting CSV, JSON, and XLSX files. Built-in
+              statistical tools include:
+            </p>
+
+            <ul>
+              <li>Variable summaries</li>
+              <li>Distributions</li>
+              <li>Confidence intervals</li>
+              <li>Hypothesis tests</li>
+              <li>Plots and graphs</li>
+              <li>Linear regression and residuals</li>
+            </ul>
+
+            <!-- Example image: stats menu / TI-Nspire mode -->
+            <div class="about-image">
+              <div class="image-placeholder">
+                Example: Statistics menus / TI-Nspire mode
+              </div>
+            </div>
+
+            <p>
+              The project began with the goal of making statistics tools
+              accessible to students, especially AP Statistics learners. A
+              dedicated TI-Nspire mode mirrors the calculator used for the exam
+              and in-class, matching its menus, inputs, outputs, and
+              terminology.
+            </p>
+
+            <p>
+              The long-term vision is to grow this foundation into a
+              higher-level statistics calculator, starting from these core
+              features.
+            </p>
+          </div>
+        </section>
+
+        <section id="contact">
+          <h2>Contact / Contribute</h2>
+
+          <div class="two-col">
+            <div class="box">
+              <p>Send feedback, bug reports, or requests:</p>
+              <ul>
+                <li><b>Email:</b> desmostats@gmail.com</li>
+                <li><b>Discord user:</b> add link</li>
+                <li><b>Documentation:</b> add link</li>
+              </ul>
+              <!-- 
+              <form action="#" method="post">
+                <label for="name">Name</label>
+                <input id="name" name="name" placeholder="Your name" />
+
+                <label for="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="you@example.com"
+                />
+
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="What should be added or fixed?"
+                ></textarea>
+
+                <div style="margin-top: 10px">
+                  <button class="btn primary" type="submit">Send</button>
+                </div>
+              </form> -->
+            </div>
+
+            <div class="box">
+              <p>Contribute links:</p>
+              <ul>
+                <li>
+                  <a href="https://github.com/Kaitou-e/DesmoStats"
+                    >GitHub repo</a
+                  >
+                </li>
+                <li><b>Discord server:</b> add link</li>
+                <li><b>Documentation:</b> add link</li>
+              </ul>
+
+              <div style="margin-top: 12px">
+                <a class="btn" href="/calculator">Go to Calculator</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer>
+          <div class="footer-row">
+            <div>© <span id="year"></span> DesmoStats</div>
+            <div>
+              <a href="#about">About</a> · <a href="#contact">Contact</a> ·
+              <a href="/calculator">Calculator</a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </main>
+
+    <script>
+      // Minimal JS: mobile menu + footer year
+      const menuBtn = document.getElementById("menuBtn");
+      const mobilePanel = document.getElementById("mobilePanel");
+
+      function setMenu(open) {
+        mobilePanel.classList.toggle("open", open);
+        menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        menuBtn.textContent = open ? "Close" : "Menu";
+      }
+
+      menuBtn?.addEventListener("click", () => {
+        setMenu(!mobilePanel.classList.contains("open"));
+      });
+
+      document.querySelectorAll("[data-close-menu]").forEach((a) => {
+        a.addEventListener("click", () => setMenu(false));
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
