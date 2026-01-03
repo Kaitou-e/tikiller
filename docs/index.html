@@ -280,6 +280,35 @@
         text-align: center;
         font-size: 14px;
       }
+      .wrap-right {
+        float: right;
+        max-width: 400px;
+        width: 100%;
+        margin: 0 0 10px 14px;
+        border: 1px solid #ccc;
+      }
+
+      .wrap-left {
+        float: left;
+        max-width: 400px;
+        width: 100%;
+        margin: 0 14px 10px 0;
+        border: 1px solid #ccc;
+      }
+
+      .clear {
+        clear: both;
+      }
+
+      /* Mobile: disable wrapping */
+      @media (max-width: 600px) {
+        .wrap-right,
+        .wrap-left {
+          float: none;
+          display: block;
+          margin: 10px auto;
+        }
+      }
     </style>
   </head>
 
@@ -292,9 +321,9 @@
           <nav aria-label="Primary navigation">
             <a href="#about">About</a>
             <a href="#contact">Contact / Contribute</a>
-            <a class="btn primary" href="calculator/calc.html"
+            <!-- <a class="btn primary" href="calculator/calc.html"
               >Open Calculator</a
-            >
+            > -->
           </nav>
 
           <div>
@@ -325,10 +354,17 @@
         <div class="hero">
           <div class="hero-grid">
             <div>
-              <h1>Online Statistics Calculator</h1>
+              <h1>Spreadsheet-based statistics calculator</h1>
               <p>
-                Quick tools for common statistics tasks. Enter inputs, get
-                results. Keep it simple, readable, and correct.
+                <b>DesmoStats</b> is a free, login-less online stats tool built
+                around a real spreadsheet: enter data, use formulas,
+                drag-to-fill, then run confidence intervals, tests, plots, and
+                regression from simple menus.
+              </p>
+
+              <p style="margin-top: 8px; font-size: 13px">
+                Includes an optional <b>TI-Nspire mode</b> that mirrors AP Stats
+                calculator menus, inputs, and wording.
               </p>
 
               <div class="actions">
@@ -337,22 +373,26 @@
                 >
                 <a class="btn" href="#about">What it does</a>
               </div>
-
-              <p style="margin-top: 10px; font-size: 13px">
-                Note: replace the image placeholder with a screenshot or diagram
-                later.
-              </p>
             </div>
 
-            <div class="placeholder" aria-label="Image placeholder">
-              Image placeholder (optional)
-            </div>
+            <img
+              src="img/menu1.png"
+              alt="Example of the DesmoStats menu interface"
+              style="width: 100%; max-width: 600px; border: 1px solid #ccc"
+            />
           </div>
         </div>
 
         <section id="about">
           <h2>About</h2>
           <div class="box">
+            <!-- First image: right -->
+            <img
+              src="img/spreadsheet.png"
+              alt="Example of basic spreadsheet functions"
+              class="wrap-right"
+            />
+
             <p>
               <b>DesmoStats</b> is a free, login-less online statistics
               calculator built around a fully functional spreadsheet. Data is
@@ -360,13 +400,6 @@
               accessed through structured menus, similar to desktop software
               like JMP.
             </p>
-
-            <!-- Example image: spreadsheet view -->
-            <div class="about-image">
-              <div class="image-placeholder">
-                Example: Spreadsheet data entry and formulas
-              </div>
-            </div>
 
             <p>
               The spreadsheet supports formulas, drag-and-fill, and
@@ -382,20 +415,23 @@
               <li>Plots and graphs</li>
               <li>Linear regression and residuals</li>
             </ul>
+            <br />
+            <!-- Clear before switching sides -->
+            <div class="clear"></div>
 
-            <!-- Example image: stats menu / TI-Nspire mode -->
-            <div class="about-image">
-              <div class="image-placeholder">
-                Example: Statistics menus / TI-Nspire mode
-              </div>
-            </div>
+            <!-- Second image: left -->
+            <img
+              src="img/resultexample.png"
+              alt="Example of TI-style results"
+              class="wrap-left"
+            />
 
             <p>
               The project began with the goal of making statistics tools
-              accessible to students, especially AP Statistics learners. A
+              accessible to students, especially AP Statistics students. A
               dedicated TI-Nspire mode mirrors the calculator used for the exam
               and in-class, matching its menus, inputs, outputs, and
-              terminology.
+              terminology. (Demonstrated to the left.)
             </p>
 
             <p>
@@ -403,6 +439,9 @@
               higher-level statistics calculator, starting from these core
               features.
             </p>
+
+            <!-- Final clear to prevent footer overlap -->
+            <div class="clear"></div>
           </div>
         </section>
 
