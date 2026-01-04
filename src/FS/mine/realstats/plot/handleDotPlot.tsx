@@ -142,10 +142,28 @@ function handleDotPlot(
       </>
     );
   }
+
+  
+  const MenuText = () => (
+    <>
+      Use Dotplot to assess and compare sample data 
+            <br />
+      distributions. A dotplot divides sample values 
+            <br />
+      into small intervals and represents each value 
+            <br />
+      or small group of values with a dot along a 
+            <br />
+      number line.
+      <br /> <br />
+    </>
+  );
+
   showDialog(
     false,
     <div>
       <h2>Dotplot</h2>
+      <MenuText />
       <DrawDownSelection
         variable={selectCol}
         options={getColNames(data)}

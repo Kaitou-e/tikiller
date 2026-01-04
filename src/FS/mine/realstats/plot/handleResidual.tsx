@@ -159,10 +159,24 @@ function handleResidual(
       </>
     );
   }
+  const MenuText = () => (
+    <>
+    A residual plot is a graph that is used to examine
+    <br /> 
+    the goodness-of-fit in regression. Select two
+            <br />
+    columns of data that contain x and y coordinates
+            <br />
+    for the data points, same as linear regression.
+      <br /> <br />
+    </>
+  );
+
   showDialog(
     false,
     <div>
       <h2>Residuals Plot</h2>
+      <MenuText />
       <DrawDownSelection
         variable={selectColx}
         options={getColNames(data)}

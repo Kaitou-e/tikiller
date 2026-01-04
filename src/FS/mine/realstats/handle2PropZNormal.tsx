@@ -142,9 +142,22 @@ function handle2PropZ(
       ["n2", sampleSize2.value],
     ];
     const align: ("left" | "center" | "right")[] = ["left", "center"];
+
+    const MenuText2 = () => (
+      <>
+        The null hypothesis (H₀) for the 2-
+        <br />
+        proportion z-test states that the 
+        <br />
+        two population proportions are equal.
+        <br /> <br />
+      </>
+    );
+
     return (
       <div>
         <h2>2-Prop z Test</h2>
+        <MenuText2 />
         <Table data={tableRes} align={align} />
         {/* <p>alternate hyp: {altHyp.value.toString()}</p>
         <p>sample prop = {sampleProp}</p>
@@ -154,10 +167,22 @@ function handle2PropZ(
     );
   }
 
+  const MenuText = () => (
+    <>
+      2-proportion z-test tests whether two population proportions
+      <br />
+      differ significantly. Either input the sample sets by raw
+      <br />
+      data, or statistical summaries.
+      <br /> <br />
+    </>
+  );
+
   showDialog(
     false,
     <div>
       <h2>2-Prop z test</h2>
+      <MenuText />
       <DrawDownSelection
         variable={altHyp}
         options={["p1 != p2", "p1 > p2", "p1 < p2"]}

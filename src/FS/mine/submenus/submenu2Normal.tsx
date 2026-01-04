@@ -2,14 +2,14 @@ import { useDialog } from "../../react/src/hooks/useDialog.tsx";
 import { useContext } from "react";
 import { getFlowdata } from "../../core/src/index.ts";
 import WorkbookContext from "../../react/src/context/index.ts";
-import handleAdd from "../realstats/handle1PropZ.tsx";
-import handle2PropZ from "../realstats/handle2PropZ.tsx";
+import handleAdd from "../realstats/handle1PropZNormal.tsx";
+import handle2PropZ from "../realstats/handle2PropZNormal.tsx";
 import SubMenu from "./submenu.tsx";
-import handle2TTest from "../realstats/handle2TTest.tsx";
+import handle2TTest from "../realstats/handle2TTestNormal.tsx";
 import handleOneVarStats from "../realstats/handleOneVarStats.tsx";
-import handleTTest from "../realstats/handleTTest.tsx";
-import handleChiGOF from "../realstats/handleChiGOF.tsx";
-import handleChi2Way from "../realstats/handleChi2Way.tsx";
+import handleTTest from "../realstats/handleTTestNormal.tsx";
+import handleChiGOF from "../realstats/handleChiGOFNormal.tsx";
+import handleChi2Way from "../realstats/handleChi2WayNormal.tsx";
 
 const SubMenuSan: React.FC<{
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,7 +43,7 @@ const SubMenuSan: React.FC<{
       value: "2propz",
     },
     {
-      text: "t Test",
+      text: "1-Sample t Test",
       value: "ttest",
     },
     {
@@ -51,11 +51,11 @@ const SubMenuSan: React.FC<{
       value: "2ttest",
     }, /////////////////////////
     {
-      text: "χ2 GOF",
+      text: "Chi-Sq Proportion",
       value: "chigof",
     },
     {
-      text: "χ2 2-way Test",
+      text: "Chi-Sq 2-way Table",
       value: "chi2way",
     },
   ];

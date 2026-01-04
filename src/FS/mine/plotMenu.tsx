@@ -69,7 +69,7 @@ function MyPlotMenu() {
       value: "dotplot",
     },
     {
-      text: "Box Plot",
+      text: "Box Plot (TI)",
       value: "boxplot",
     },
     {

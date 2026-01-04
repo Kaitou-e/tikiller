@@ -58,7 +58,6 @@ function handleAdd(
       let validcnt = 0;
       let startingY = exclRow1.value ? 1 : 0;
       for (let i = startingY; i < arr.length; i++) {
-        // for (let i = 0; i < arr.length; i++) {
         if (arr[i][colSelect] != null && arr[i][colSelect].toString() != "") {
           validcnt++;
           if (arr[i][colSelect].toString() === eventName.value.toString()) {
@@ -94,16 +93,23 @@ function handleAdd(
     }
     const tableRes = [
       ["Alternate Hyp", altHyp.value.toString()],
-      ["Sample prop", sampleProp.toFixed(5)],
-      // ["p0",pNull.value.toString()],
+      ["Sample prop p̂", sampleProp.toFixed(5)],
+      ["p0",pNull.value.toString()],
       ["Z-score", testres.z.toFixed(5)],
       ["P value", testres.pValue.toFixed(5)],
       ["n", sampleSize.value],
     ];
     const align: ("left" | "center" | "right")[] = ["left", "center"];
+    const MenuText2 = () => (
+      <>
+        Null H0 is population prop equals to p0.
+        <br /> <br />
+      </>
+    );
     return (
       <div>
         <h2>1-Prop z Test</h2>
+        <MenuText2 />
         <Table data={tableRes} align={align} />
         {/* <p>alternate hyp: {altHyp.value.toString()}</p>
         <p>sample prop = {sampleProp}</p>
@@ -113,10 +119,25 @@ function handleAdd(
     );
   }
 
+
+  const MenuText = () => (
+    <>
+      1-proportion z-test tests if a sample proportion, prop(p̂),
+      <br />
+      differs significantly from a hypothesized population
+      <br />
+      proportion p0. Either input the sample set by raw
+      <br />
+      data, or statistical summaries.
+      <br /> <br />
+    </>
+  );
+
   showDialog(
     false,
     <div>
       <h2>1-prop z test</h2>
+      <MenuText />
       <NumberInput variable={pNull} textLabel="p_0: " step="0.1" />
       <DrawDownSelection
         variable={altHyp}

@@ -6,11 +6,11 @@ import SubMenu from "./submenu.tsx";
 import {
   handle1PropZInt,
   handle2PropZInt,
-} from "../realstats/confidenceints/handleZInts.tsx";
+} from "../realstats/confidenceints/handleZIntsNormal.tsx";
 import {
   handle2SampleTInt,
   handleTInt,
-} from "../realstats/confidenceints/handleTInts.tsx";
+} from "../realstats/confidenceints/handleTIntsNormal.tsx";
 
 const SubMenuSan: React.FC<{
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -44,7 +44,7 @@ const SubMenuSan: React.FC<{
       value: "2pz",
     },
     {
-      text: "t interval",
+      text: "Student's t interval",
       value: "tci",
     },
     {

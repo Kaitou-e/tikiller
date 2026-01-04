@@ -83,10 +83,29 @@ function handleScatterPlot(
       </>
     );
   }
+const MenuText = () => (
+    <>
+    Use Scatterplot to investigate the relationship
+            <br />
+    between a pair of continuous variables. A 
+            <br />
+    scatterplot displays ordered pairs of x and y 
+            <br />
+    variables in a coordinate plane. Select two
+            <br />
+    columns of data that contain x and y coordinates
+            <br />
+    for the data points.
+      <br /> <br />
+    </>
+  );
+
+
   showDialog(
     false,
     <div>
       <h2>Scatterplot</h2>
+      <MenuText />
       <DrawDownSelection
         variable={selectColx}
         options={getColNames(data)}

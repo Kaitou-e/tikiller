@@ -142,10 +142,28 @@ function handleHistogram(
       </>
     );
   }
+
+const MenuText = () => (
+    <>
+      Use Histogram to examine the shape and 
+            <br />
+      spread of your data. A histogram divides 
+            <br />
+      sample values into many intervals and 
+            <br />
+      represents the frequency of data values 
+            <br />
+        in each interval with a bar.
+      <br /> <br />
+    </>
+  );
+
+
   showDialog(
     false,
     <div>
       <h2>Histogram</h2>
+      <MenuText />
       <DrawDownSelection
         variable={selectCol}
         options={getColNames(data)}

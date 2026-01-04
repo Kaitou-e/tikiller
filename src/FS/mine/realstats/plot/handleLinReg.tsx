@@ -148,10 +148,30 @@ function handleLinReg(
       </>
     );
   }
+
+const MenuText = () => (
+    <>
+    A regression analysis generates an equation to 
+    <br />
+    describe the statistical relationship between 
+    <br />
+    one or more predictors and the response variable 
+    <br />
+    and to predict new observations. Select two
+            <br />
+    columns of data that contain x and y coordinates
+            <br />
+    for the data points.
+      <br /> <br />
+    </>
+  );
+
+
   showDialog(
     false,
     <div>
       <h2>Linear Regression</h2>
+      <MenuText />
       <DrawDownSelection
         variable={selectColx}
         options={getColNames(data)}

@@ -79,15 +79,28 @@ function handleTTest(
       ["Alternate Hyp", altHyp.value.toString()],
       ["t-score", testres.t.toFixed(5)],
       ["P value", testres.pValue.toFixed(5)],
-      ["df", testres.df.toFixed(0)],
+      ["Degres of Freedom", testres.df.toFixed(0)],
       ["Sample mean", mSample.value],
-      ["Sx", Number(sampleSD.value).toFixed(5)],
-      ["n", sampleSize.value],
+      ["Sample SD", Number(sampleSD.value).toFixed(5)],
+      ["Sample n", sampleSize.value],
     ];
     const align: ("left" | "center" | "right")[] = ["left", "center"];
+
+    const MenuText2 = () => (
+      <>
+        The null hypothesis (H₀) for the 1-sample
+        <br />
+        t-test states that the sample mean and
+        <br />
+         hypothesized population mean(p0) are equal.
+        <br /> <br />
+      </>
+    );
+
     return (
       <div>
-        <h2>t Test</h2>
+        <h2>1-Sample t Test</h2>
+        <MenuText2 />
         <Table data={tableRes} align={align} />
         {/* <p>alternate hyp: {altHyp.value.toString()}</p>
         <p>sample prop = {sampleProp}</p>
@@ -97,10 +110,26 @@ function handleTTest(
     );
   }
 
+  const MenuText = () => (
+    <>
+      1-sample t-test tests whether a sample mean differs
+      <br />
+      significantly from a hypothesized population mean
+      <br />
+      when population standard deviation is unknown.
+      <br />
+      Either input the sample sets by raw data, or
+      <br />
+      statistical summaries.
+      <br /> <br />
+    </>
+  );
+
   showDialog(
     false,
     <div>
-      <h2>t Test</h2>
+      <h2>1-Sample t Test</h2>
+      <MenuText />
       <NumberInput variable={mNull} textLabel="μ0: " step="0.1" />
       <DrawDownSelection
         variable={altHyp}
@@ -126,7 +155,7 @@ function handleTTest(
 
       <h4>Enter using stats (override):</h4>
       <NumberInput variable={mSample} textLabel="Sample mean: " step="0.1" />
-      <NumberInput variable={sampleSD} textLabel="S_x:  " step="0.1" />
+      <NumberInput variable={sampleSD} textLabel="Sample SD:  " step="0.1" />
       <NumberInput
         variable={sampleSize}
         textLabel="Sample size, n: "

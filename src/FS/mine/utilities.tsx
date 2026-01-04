@@ -83,8 +83,8 @@ export function getColNames(data: any[][], emptyItem1: boolean = true) {
     if (hasData) {
       res.push(
         getExcelColumnName(x) +
-          " (row1: " +
-          (!data[0][x] ? "Null" : data[0][x].v.toString() + ")")
+        " (row1: " +
+        (!data[0][x] ? "Null" : data[0][x].v.toString() + ")")
       );
     }
   }
@@ -180,6 +180,43 @@ export function getMultiColNum(
     }
   }
   return res as number[][];
+}
+
+export function getMultiColValidRowIndex(
+  dataInput: any[][],
+  cols: number[] = [],
+  excludeRowOne: boolean = false,
+  // allValidNumInOneRow: boolean = true
+  // When all cells are valid numbers, the one row of data will be
+  // recorded into the res array. If unselected, each subarray in
+  // result will contain all valid numbers in that column, while
+  // the length of each subarray may vary.
+): number[] {
+  console.log(cols);
+  if (cols.length === 0) return;
+  const data = getValueGrid(dataInput);
+  if (!data) return;
+  const W = data[0].length;
+  const H = data.length;
+  // console.log(W,H, data);
+
+  // let res=new Array(cols.length).fill([]);
+  let res = [];//new Array(cols.length).fill(null).map(() => []);
+  // console.log(res);
+  let startingY = excludeRowOne ? 1 : 0;
+  for (let y = startingY; y < H; y++) {
+    let allNum: boolean = true;
+    let row = [];
+    for (const x of cols) {
+      const v = toFloat(data[y][x]);
+      if (!v) allNum = false;
+      row.push(v);
+    }
+    if (allNum) {
+      res.push(y);
+    }
+  }
+  return res as number[];
 }
 
 export function getFromDataFreq(
